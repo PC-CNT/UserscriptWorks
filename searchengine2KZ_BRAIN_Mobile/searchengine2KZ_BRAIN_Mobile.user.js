@@ -9,7 +9,8 @@
 // @License        MIT License
 // ==/UserScript==
 
-window.onload = function() {
+// window.onload = function() {
+document.addEventListener("load", function() {
 // document.addEventListener('DOMContentLoaded', function() {
     console.log("===START UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
     const KZ_url = "http://servermobile.net/index.php?_kzm_u=";
@@ -23,5 +24,5 @@ window.onload = function() {
         // 検索結果の数だけ繰り返す
     });
     console.log("===END UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
-// });
-};
+});
+// };
