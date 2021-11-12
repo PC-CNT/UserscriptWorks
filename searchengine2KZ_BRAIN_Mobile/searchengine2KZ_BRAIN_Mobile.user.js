@@ -6,11 +6,11 @@
 // @author         PC-CNT
 // @include        /^(http|https):\/\/www\.google\..+\/search.*/
 // @grant          none
-// @License        MIT License
 // ==/UserScript==
 
+(function () {
 // window.onload = function() {
-document.addEventListener("load", function() {
+// document.addEventListener("load", function() {
 // document.addEventListener('DOMContentLoaded', function() {
     console.log("===START UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
     const KZ_url = "http://servermobile.net/index.php?_kzm_u=";
@@ -24,5 +24,6 @@ document.addEventListener("load", function() {
         // 検索結果の数だけ繰り返す
     });
     console.log("===END UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
-});
+// });
 // };
+})();
