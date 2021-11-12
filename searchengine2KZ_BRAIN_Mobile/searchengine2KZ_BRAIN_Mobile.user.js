@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Search engine to KZ BRAIN Mobile
-// @version      0.0.3
+// @version      0.0.4
 // @description  検索エンジンの結果から直接KZ BRAIN Mobileの軽量サイトに直接移動できるスクリプトです。
 // @author       PC-CNT
 // @include        /^(http|https):\/\/www\.google\..+\/search.*/
