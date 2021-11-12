@@ -6,11 +6,9 @@
 // @author         PC-CNT
 // @include        /^(http|https):\/\/www\.google\..+\/search.*/
 // @grant          none
-// @License        MIT License
 // ==/UserScript==
 
-window.onload = function() {
-// document.addEventListener('DOMContentLoaded', function() {
+(function () {
     console.log("===START UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
     const KZ_url = "http://servermobile.net/index.php?_kzm_u=";
 
@@ -23,5 +21,4 @@ window.onload = function() {
         // 検索結果の数だけ繰り返す
     });
     console.log("===END UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
-// });
-};
+})();
