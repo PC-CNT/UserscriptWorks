@@ -1,14 +1,16 @@
 // ==UserScript==
-// @name         Search engine to KZ BRAIN Mobile
-// @version      0.0.4
-// @description  検索エンジンの結果から直接KZ BRAIN Mobileの軽量サイトに直接移動できるスクリプトです。
-// @namespace       https://github.com/PC-CNT/UserscriptWorks/tree/main/searchengine2KZ_BRAIN_Mobile
-// @author       PC-CNT
+// @name           Search engine to KZ BRAIN Mobile
+// @version        0.0.4
+// @description    検索エンジンの結果から直接KZ BRAIN Mobileの軽量サイトに直接移動できるスクリプトです。
+// @namespace      https://github.com/PC-CNT/UserscriptWorks/tree/main/searchengine2KZ_BRAIN_Mobile
+// @author         PC-CNT
 // @include        /^(http|https):\/\/www\.google\..+\/search.*/
-// @grant        none
+// @grant          none
+// @License        MIT License
 // ==/UserScript==
 
-document.addEventListener('DOMContentLoaded', function() {
+window.onload = function() {
+// document.addEventListener('DOMContentLoaded', function() {
     console.log("===START UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
     const KZ_url = "http://servermobile.net/index.php?_kzm_u=";
 
@@ -21,4 +23,5 @@ document.addEventListener('DOMContentLoaded', function() {
         // 検索結果の数だけ繰り返す
     });
     console.log("===END UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
-});
+// });
+};
