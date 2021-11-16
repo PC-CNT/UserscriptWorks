@@ -5,7 +5,7 @@
 // @description   2ch.netやFC2 Wikiなどのサイト内リンクからクッションページを削除して直接飛ぶようにするスクリプトです。
 // @auther        PC-CNT
 // @updateURL     
-// @match         *
+// @include       *
 // ==/Userscript==
 
 
