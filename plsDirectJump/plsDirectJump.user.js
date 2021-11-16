@@ -13,6 +13,7 @@
 
 
 (function () {
+    console.log("===START UserscriptWorks/plsDirectJump===");
     if (location.hostname.match(/^(2|5)ch\.net$/)) {
         // Do something
         let class_thread = document.getElementsByClassName("thread");
@@ -23,4 +24,5 @@
         });
     }
     // console.log("test")
+    console.log("===END UserscriptWorks/plsDirectJump===");
 })();
