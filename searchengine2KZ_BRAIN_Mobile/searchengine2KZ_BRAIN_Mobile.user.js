@@ -18,6 +18,8 @@
         let a_tag_main = value.querySelector("a");
         let url_source = a_tag_main.getAttribute("href");
         a_tag_main.setAttribute("href", KZ_url + url_source);
+        a_tag_main.setAttribute("target", "_blank");
+        a_tag_main.setAttribute("rel", "noopener noreferrer");
         // console.log(url_source);
         // 検索結果の数だけ繰り返す
     });
