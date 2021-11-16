@@ -6,10 +6,6 @@
 // @auther        PC-CNT
 // @updateURL     
 // @match         *
-
-
-
-
 // ==/Userscript==
 
 
