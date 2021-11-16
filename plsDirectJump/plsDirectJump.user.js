@@ -6,6 +6,7 @@
 // @auther        PC-CNT
 // @updateURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.js
 // @match         /^https?:\/\/*
+// @grant         none
 // ==/Userscript==
 
 
