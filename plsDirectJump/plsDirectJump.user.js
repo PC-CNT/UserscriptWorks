@@ -17,7 +17,9 @@
         // Do something
         let class_thread = document.getElementsByClassName("thread");
         class_thread.querySelectorAll("a").forEach(function(value) {
-            console.log(value.getAttribute("href"));
+            url_source = value.getAttribute("href");
+            console.log(url_source);
+
         });
     }
     // console.log("test")
