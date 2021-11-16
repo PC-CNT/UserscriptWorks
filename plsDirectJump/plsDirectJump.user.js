@@ -1,4 +1,4 @@
-// ==Userscript==
+// ==UserScript==
 // @name          plsDirectJump
 // @namespace     https://github.com/PC-CNT/UserscriptWorks/
 // @version       0.0.1
@@ -7,7 +7,7 @@
 // @updateURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.js
 // @include       /^https?:\/\/*
 // @grant         none
-// ==/Userscript==
+// ==/UserScript==
 
 
 
