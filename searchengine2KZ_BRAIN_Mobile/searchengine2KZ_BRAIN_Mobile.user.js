@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Search engine to KZ BRAIN Mobile
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.5
+// @version         0.0.6
 // @author          PC-CNT
 // @description:ja  検索エンジンの結果から直接KZ BRAIN Mobileの軽量サイトに直接移動できるスクリプトです。
 // @updateURL       https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js
