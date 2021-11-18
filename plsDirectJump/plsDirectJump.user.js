@@ -28,6 +28,13 @@
     document.querySelectorAll("a").forEach(function(value) {
         url_source = value.getAttribute("href");
         console.log(url_source);
+        //TODO: hrefの編集
+        //* 2ちゃんねる (jump.5ch.net/?http://example.com/example.html, jump.2ch.net/?,)
+        //* FC2 Wiki (https://example.wiki.fc2.com/jump/https/example.com%2exapmple)
+        if (url_source.match(/^https?:\/\/jump.2|5ch\.net\/\?.*/)) {
+            // value.setAttribute("href", url_source.replace(/^https?:\/\/jump.2|5ch\.net\/\?/, ""));
+            console.log("match:" + url_source);
+        }
     });
     // console.log("test")
     console.log("===END UserscriptWorks/plsDirectJump===");
