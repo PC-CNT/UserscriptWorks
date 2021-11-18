@@ -14,15 +14,20 @@
 
 (function () {
     console.log("===START UserscriptWorks/plsDirectJump===");
-    if (location.hostname.match(/^(2|5)ch\.net$/)) {
-        // Do something
-        let class_thread = document.getElementsByClassName("thread");
-        class_thread.querySelectorAll("a").forEach(function(value) {
-            url_source = value.getAttribute("href");
-            console.log(url_source);
+    // if (location.hostname.match(/^(2|5)ch\.net$/)) {
+    //     // Do something
+    //     let class_thread = document.getElementsByClassName("thread");
+    //     class_thread.querySelectorAll("a").forEach(function(value) {
+    //         url_source = value.getAttribute("href");
+    //         console.log(url_source);
 
-        });
-    }
+    //     });
+    // }
+    let class_thread = document.getElementsByClassName("thread");
+    class_thread.querySelectorAll("a").forEach(function(value) {
+        url_source = value.getAttribute("href");
+        console.log(url_source);
+    });
     // console.log("test")
     console.log("===END UserscriptWorks/plsDirectJump===");
 })();
