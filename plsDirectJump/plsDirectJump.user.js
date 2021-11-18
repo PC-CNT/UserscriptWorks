@@ -23,8 +23,9 @@
 
     //     });
     // }
-    let class_thread = document.getElementsByClassName("thread");
-    class_thread.querySelectorAll("a").forEach(function(value) {
+    // let class_thread = document.getElementsByClassName("thread");
+    // class_thread.querySelectorAll("a").forEach(function(value) {
+    document.querySelectorAll("a").forEach(function(value) {
         url_source = value.getAttribute("href");
         console.log(url_source);
     });
