@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Search engine to KZ BRAIN Mobile
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.6
+// @version         0.0.7
 // @author          PC-CNT
 // @license         MIT
 // @description:ja  検索エンジンの結果からKZ BRAIN Mobileの軽量サイトを別タブで直接開くようにするスクリプトです。
@@ -18,13 +18,15 @@
 
     let div_id_search = document.getElementById("search");
     div_id_search.querySelectorAll(".g").forEach(function(value) {
-        let a_tag_main = value.querySelector("a");
-        let url_source = a_tag_main.getAttribute("href");
-        a_tag_main.setAttribute("href", KZ_url + url_source);
-        a_tag_main.setAttribute("target", "_blank");
-        a_tag_main.setAttribute("rel", "noopener noreferrer");
-        // console.log(url_source);
-        // 検索結果の数だけ繰り返す
+        value.querySelectorAll("a").forEach(function(a_tag_main) {
+            // let a_tag_main = value.querySelector("a");
+            let url_source = a_tag_main.getAttribute("href");
+            a_tag_main.setAttribute("href", KZ_url + url_source);
+            a_tag_main.setAttribute("target", "_blank");
+            a_tag_main.setAttribute("rel", "noopener noreferrer");
+            // console.log(url_source);
+            // 検索結果の数だけ繰り返す
+        });
     });
     console.log("===END UserscriptWorks/searchengine2KZ_BRAIN_Mobile===");
 })();
