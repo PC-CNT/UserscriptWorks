@@ -6,6 +6,7 @@
 // @author          PC-CNT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
+// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @include         /^https?:\/\/*
 // @grant           none
 // ==/UserScript==
