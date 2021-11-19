@@ -38,7 +38,7 @@
                 // console.log("2ch-match:" + url_source);
                 value.setAttribute("href", url_source.replace(/^https?:\/\/jump.(2|5)ch\.net\/\?/, ""));
                 // url_replace(value, url_source, /^https?:\/\/jump.(2|5)ch\.net\/\?/, "");
-                console.log("URL changed:" + value.getAttribute("href"));
+                // console.log("URL changed:" + value.getAttribute("href"));
             }
             // if (url_source.match(/^https?:\/\/.+\.wiki\.fc2\.com\/jump\//)) {
             if (location.hostname.match(/^.+\.wiki\.fc2\.com/)) {
