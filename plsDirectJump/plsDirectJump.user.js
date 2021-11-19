@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.1
+// @version         0.0.2
 // @description:ja  2ch.netやFC2 Wikiなどのサイト内リンクからクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @auther          PC-CNT
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.js
@@ -27,7 +27,7 @@
     // class_thread.querySelectorAll("a").forEach(function(value) {
     document.querySelectorAll("a").forEach(function(value) {
         url_source = value.getAttribute("href");
-        console.log(url_source);
+        // console.log(url_source);
         //TODO: hrefの編集
         //* 2ちゃんねる (jump.5ch.net/?http://example.com/example.html, jump.2ch.net/?,)
         //* FC2 Wiki (https://example.wiki.fc2.com/jump/https/example.com%2exapmple)
