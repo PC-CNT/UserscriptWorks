@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.3
+// @version         0.0.4
 // @description:ja  2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
+// @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @include         /^https?:\/\/*
+// @include         *
 // @grant           none
 // ==/UserScript==
 
