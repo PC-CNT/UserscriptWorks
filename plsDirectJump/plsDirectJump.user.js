@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.4
+// @version         0.1.1
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
@@ -17,17 +17,15 @@
 
 (function () {
     console.log("===START UserscriptWorks/plsDirectJump===");
-    // if (location.hostname.match(/^(2|5)ch\.net$/)) {
-    //     // Do something
-    //     let class_thread = document.getElementsByClassName("thread");
-    //     class_thread.querySelectorAll("a").forEach(function(value) {
-    //         url_source = value.getAttribute("href");
-    //         console.log(url_source);
 
-    //     });
-    // }
-    // let class_thread = document.getElementsByClassName("thread");
-    // class_thread.querySelectorAll("a").forEach(function(value) {
+    function http_https(host) {
+        if (host.match("https")) {
+            return "https";
+        } else {
+            return "http";
+        }
+    }
+
     document.querySelectorAll("a").forEach(function(value) {
         url_source = value.getAttribute("href");
         // console.log(url_source);
@@ -35,10 +33,21 @@
         //* 2ちゃんねる (jump.5ch.net/?http://example.com/example.html, jump.2ch.net/?,)
         //* FC2 Wiki (https://example.wiki.fc2.com/jump/https/example.com%2exapmple)
         if (url_source) {
-            console.log("<a href> found:" + url_source);
+            // console.log("<a href> found:" + url_source);
             if (url_source.match(/^https?:\/\/jump.(2|5)ch\.net\/\?.*/)) {
-                console.log("match:" + url_source);
+                // console.log("2ch-match:" + url_source);
                 value.setAttribute("href", url_source.replace(/^https?:\/\/jump.(2|5)ch\.net\/\?/, ""));
+                // url_replace(value, url_source, /^https?:\/\/jump.(2|5)ch\.net\/\?/, "");
+                console.log("URL changed:" + value.getAttribute("href"));
+            }
+            // if (url_source.match(/^https?:\/\/.+\.wiki\.fc2\.com\/jump\//)) {
+            if (location.hostname.match(/^.+\.wiki\.fc2\.com/)) {
+                if (url_source.match(/^\/jump\/https?\/.*/)) {
+                    console.log(decodeURIComponent(url_source.replace(/^\/jump\/https?\//, http_https(url_source) + "://")));
+                    value.setAttribute("href", decodeURIComponent(url_source.replace(/^\/jump\/https?\//, http_https(url_source) + "://")));
+                    value.setAttribute("target", "_blank");
+                    value.setAttribute("rel", "noopener noreferrer");
+                }
             }
         }
     });
