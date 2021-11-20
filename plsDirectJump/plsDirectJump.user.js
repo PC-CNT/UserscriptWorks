@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.1
+// @version         0.1.2
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
@@ -38,12 +38,12 @@
                 // console.log("2ch-match:" + url_source);
                 value.setAttribute("href", url_source.replace(/^https?:\/\/jump.(2|5)ch\.net\/\?/, ""));
                 // url_replace(value, url_source, /^https?:\/\/jump.(2|5)ch\.net\/\?/, "");
-                console.log("URL changed:" + value.getAttribute("href"));
+                // console.log("URL changed:" + value.getAttribute("href"));
             }
             // if (url_source.match(/^https?:\/\/.+\.wiki\.fc2\.com\/jump\//)) {
             if (location.hostname.match(/^.+\.wiki\.fc2\.com/)) {
                 if (url_source.match(/^\/jump\/https?\/.*/)) {
-                    console.log(decodeURIComponent(url_source.replace(/^\/jump\/https?\//, http_https(url_source) + "://")));
+                    // console.log(decodeURIComponent(url_source.replace(/^\/jump\/https?\//, http_https(url_source) + "://")));
                     value.setAttribute("href", decodeURIComponent(url_source.replace(/^\/jump\/https?\//, http_https(url_source) + "://")));
                     value.setAttribute("target", "_blank");
                     value.setAttribute("rel", "noopener noreferrer");
