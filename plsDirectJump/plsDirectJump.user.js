@@ -2,6 +2,7 @@
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
 // @version         0.1.2
+// @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
