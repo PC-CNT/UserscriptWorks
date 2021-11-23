@@ -61,4 +61,4 @@ window.addEventListener('DOMContentLoaded', function() {
     // console.log("test")
     console.log("===END UserscriptWorks/plsDirectJump===");
 // })();
-});
+} , false);
