@@ -10,6 +10,7 @@
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @include         *://*
+// @include         https://www.youtube.com/watch?v=*
 // @grant           none
 // ==/UserScript==
 
@@ -49,6 +50,11 @@
                     value.setAttribute("target", "_blank");
                     value.setAttribute("rel", "noopener noreferrer");
                 }
+            }
+        }
+        if (location.hostname.match(/^www\.youtube\.com/)) {
+            if (!(url_source)) {
+                value.setAttribute("href", value.textContent);
             }
         }
     });
