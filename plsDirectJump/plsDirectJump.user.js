@@ -54,6 +54,7 @@
         }
         if (location.hostname.match(/^www\.youtube\.com/)) {
             if (url_source == null) {
+                value.classList.remove("yt-simple-endpoint")
                 value.setAttribute("href", value.textContent);
             }
         }
