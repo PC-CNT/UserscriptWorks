@@ -17,9 +17,9 @@
 
 // window.addEventListener('DOMContentLoaded', function() {
 // window.onload = function() {
-// (function () {
-document.onreadystatechange = function() {
-    if (document.readyState == 'complete') {
+(function () {
+// document.onreadystatechange = function() {
+//     if (document.readyState == 'complete') {
         console.log("===START UserscriptWorks/plsDirectJump===");
         function http_https(host) {
             if (host.match("https")) {
@@ -64,6 +64,6 @@ document.onreadystatechange = function() {
         console.log("===END UserscriptWorks/plsDirectJump===");
 // } , false);
 // };
-// })();
-    }
-}
+})();
+//     }
+// }
