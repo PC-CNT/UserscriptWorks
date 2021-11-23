@@ -16,8 +16,8 @@
 
 
 // window.addEventListener('DOMContentLoaded', function() {
-window.onload = function() {
-// (function () {
+// window.onload = function() {
+(function () {
     console.log("===START UserscriptWorks/plsDirectJump===");
 
     function http_https(host) {
@@ -62,5 +62,5 @@ window.onload = function() {
     // console.log("test")
     console.log("===END UserscriptWorks/plsDirectJump===");
 // } , false);
-// })();
-};
+// };
+})();
