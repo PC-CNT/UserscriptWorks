@@ -54,7 +54,7 @@
 
     });
 
-    if (location.hostname.match(/^www\.youtube\.com/)) {
+    // if (location.hostname.match(/^www\.youtube\.com/)) {
         //* youtube
         //* https://www.youtube.com/redirect?q=https%3A%2F%2Fexample.com%2F
 
@@ -84,29 +84,29 @@
         // }
         // }
         // observer.observe(comment_section, observer_config);
-        window.addEventListener('DOMContentLoaded', function(e){
-            console.log("DOMContentLoaded");
-            const jsInitCheckTimer = setInterval(jsLoaded, 1000);
-            function jsLoaded() {
-                if (document.querySelector("#comments") != null) {
-                    clearInterval(jsInitCheckTimer);
-                    document.querySelectorAll("ytd-comment-thread-renderer").forEach(function(value) {
-                        value.querySelectorAll("a").forEach(function(a_tag_main) {
-                            // let a_tag_main = value.querySelector("a");
-                            let url_source = a_tag_main.getAttribute("href")
-                            if (!a_tag_main.getAttribute("href")) {
-                                a_tag_main.setAttribute("href", url_source);
-                                a_tag_main.setAttribute("target", "_blank");
-                                a_tag_main.setAttribute("rel", "noopener noreferrer");
-                                // console.log(url_source);
-                            }
-                        });
-                    });
-                }
-            }
-        });
-    }
+    //     window.addEventListener('DOMContentLoaded', function(e){
+    //         console.log("DOMContentLoaded");
+    //         const jsInitCheckTimer = setInterval(jsLoaded, 1000);
+    //         function jsLoaded() {
+    //             if (document.querySelector("#comments") != null) {
+    //                 clearInterval(jsInitCheckTimer);
+    //                 document.querySelectorAll("ytd-comment-thread-renderer").forEach(function(value) {
+    //                     value.querySelectorAll("a").forEach(function(a_tag_main) {
+    //                         // let a_tag_main = value.querySelector("a");
+    //                         let url_source = a_tag_main.getAttribute("href")
+    //                         if (!a_tag_main.getAttribute("href")) {
+    //                             a_tag_main.setAttribute("href", url_source);
+    //                             a_tag_main.setAttribute("target", "_blank");
+    //                             a_tag_main.setAttribute("rel", "noopener noreferrer");
+    //                             // console.log(url_source);
+    //                         }
+    //                     });
+    //                 });
+    //             }
+    //         }
+    //     });
+    // }
 
-        // console.log("test")
-        console.log("===END UserscriptWorks/plsDirectJump===");
+    // console.log("test")
+    console.log("===END UserscriptWorks/plsDirectJump===");
 })();
