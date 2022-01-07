@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.2.0
+// @version         0.2.7
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -16,6 +16,8 @@
 
 
 ( () => {
+    "use strict";
+
     console.log("===START UserscriptWorks/plsDirectJump===");
 
     const flag_debug = false;
@@ -33,6 +35,14 @@
             return url;
         } else {
             return "//" + url;
+        }
+    }
+
+    function isURL(text) {
+        if (text.match(/^https?:\/\//) && !(text.match(/^[0-9]{1,2}:[0-9]{2}/))) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -84,6 +94,48 @@
             }
         }
     });
+
+    if (location.hostname.match(/^www\.+youtube\.com/)) {
+        //* YouTube（米欄）
+        //* (https://www.youtube.com/watch?v=1X2TwPb3y10)
+        //! 以下メモ
+        //* #comments -> #sections -> #contents:米全体 -> ytd-comment-thread-renderer:米一つずつ
+        //* -> #comment -> #body -> #main -> #expander -> #content -> #content-text -> spanまたはa
+        //* class="style-scope ytd-comment-renderer"
+        //* "yt-confirm-dialog-renderer" 警告のダイアログ （desktop_polymer.jsに書いてあるけど全然わからん）
+        //* .yt-simple-endpoint このクラスがついてるとダイアログでる
+        //! ここまでメモ
+
+
+        const target = document.getElementById("content")
+        const config = {childList: true, subtree: true}
+
+        const observer = new MutationObserver(() => {
+            const content_text = document.querySelectorAll("#content-text");
+            if ((content_text) && (content_text.length)) {
+                content_text.forEach(block => {
+                    // console.info(block);
+                    block.querySelectorAll("a").forEach(function(value) {
+                        let a_text = value.innerText;
+                        if (isURL(a_text)) {
+                            console.info("value:", value);
+                            let _youtube = ["match:Youtube"];
+                            _youtube.push("絶対ﾊﾟｽ：" + a_text);
+                            value.classList.remove("yt-simple-endpoint");
+                            value.style.textDecoration = "none";
+                            value.setAttribute("href", a_text);
+                            value.setAttribute("target", "_blank");
+                            value.setAttribute("rel", "noopener noreferrer");
+                            debug(_youtube);
+                        }
+                    });
+                });
+            }
+        });
+
+        observer.observe(target, config);
+
+    }
 
     console.log("===END UserscriptWorks/plsDirectJump===");
 })();
