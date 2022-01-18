@@ -10,6 +10,14 @@ my some Userscript
 
 リクエストを受けて即興で書いたものが多いので、多分n番煎じです。
 
+## Install
+
+[plsDirectJump](https://github.com/PC-CNT/UserscriptWorks/raw/main/plsDirectJump/plsDirectJump.user.js)
+
+[back2GeoCities](https://github.com/PC-CNT/UserscriptWorks/raw/main/back2GeoCities/back2GeoCities.user.js)
+
+[searchengine2KZ_BRAIN_Mobile](https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js)
+
 ## Usage
 
 1. 拡張機能のインストール
