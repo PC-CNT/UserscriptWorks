@@ -17,7 +17,7 @@
 ( () => {
     _result = [];
     document.querySelectorAll(".ckitemLink").forEach(function(value) {
-        _result += (value.innerText + "\n");
+        _result += ('\"' + value.innerText + '\",' + "\n");
     });
     navigator.clipboard.writeText(_result).then(() => {
         console.log("Copied to clipboard");
