@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.2.8
+// @version         0.2.9
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -11,6 +11,7 @@
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @include         *://*
 // @include         https://www.youtube.com/watch?v=*
+// @include         https://steamcommunity.com/*
 // @grant           none
 // ==/UserScript==
 
@@ -132,6 +133,14 @@
                     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/kakaku\.com\/jump\/\?url=/, "")));
                     _kakaku.push("変更後ﾊﾟｽ：" + value.href);
                     debug(_kakaku);
+                }
+                if (url_source_abs.match(/^https:\/\/steamcommunity\.com\/linkfilter\/\?url=/)) {
+                    //* Steam
+                    //* (https://steamcommunity.com/linkfilter/?url=https://example.com/)
+                    let _steam = ["match:Steam", "絶対ﾊﾟｽ：" + url_source_abs];
+                    value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https:\/\/steamcommunity\.com\/linkfilter\/\?url=/, "")));
+                    _steam.push("変更後ﾊﾟｽ：" + value.href);
+                    debug(_steam);
                 }
             }
         });
