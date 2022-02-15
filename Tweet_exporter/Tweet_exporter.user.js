@@ -54,7 +54,7 @@ TODO: 本文の前後に改行を入れる
 
     //* なんかよく分からないけどhtml2canvasで出力した画像が真っ白だった
     //! html2canvasではなくtwitter側が悪かった（Content Security Policyなるものがdata:image…のURLを弾いていたせいで画像が取得できてなかったっぽい）
-    const export_tweet = (article_element, group) => {
+    const export_tweet = (article_element) => {
         let zip = new JSZip();
         domtoimage.toJpeg(article_element).then(blob => {
             zip.file("screenshot.jpg", blob.split(",")[1], {base64: true});
@@ -200,7 +200,7 @@ TODO: 本文の前後に改行を入れる
                 group.lastElementChild.addEventListener("click", (e) => {
                     e.stopPropagation();
                     //* <article>
-                    export_tweet(group.closest("article"), group);
+                    export_tweet(group.closest("article"));
                 });
             }
         });
