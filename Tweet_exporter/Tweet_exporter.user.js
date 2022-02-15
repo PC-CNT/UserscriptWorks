@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.76
+// @version         0.0.79
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -61,10 +61,11 @@ TODO: 本文の前後に改行を入れる
             let _tweet_text = "";
             let current_group = null;
             let _end = "\n";
+            let flag_multi_div = false;
             let is_url_single = (/^https?:\/\/twitter.com\/\w+\/status\/\d+/).test(location.href);
             //* span:not(span span)にすることで"<span><span>テキスト</span></span>"のような場合にテキストが二重で出力されるのを防ぐ
             //! aria-hidden="true"が付いているspanはリンク（t.co）の代替テキストなので除外する ~~下のif文でクラスを使用して重複を避けたのでいらない~~ やっぱいる
-            article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img`).forEach(content => {
+            article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
             // article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[data-testid="retweet"], div[data-testid="like"]`).forEach(content => {
                 DEBUG([`content`, content]);
                 //* 1つの要素に属している場合は改行をしない
@@ -115,7 +116,15 @@ TODO: 本文の前後に改行を入れる
                     //* 「·」←これ
                     // _tweet_text += (`${content.innerText}`);
                     _tweet_text += (``);
+                } else if (!is_url_single && content.closest(`div[aria-label][id]`)) {
+                    //* 単独ではない場合div[aria-label][id]のaria-lbelでRTとFav数が取得できる
+                    if (!flag_multi_div) {
+                        _tweet_text += content.closest(`div[aria-label][id]`).getAttribute("aria-label");
+                        flag_multi_div = true;
+                    }
+                    return;
                 } else if (content.tagName === "SPAN" && content.innerText !== "") {
+                    //* 通常のテキスト　これが最後に来るようにする！
                     DEBUG([`${content.tagName}`, `${content.innerText}`]);
                     _tweet_text += (`${content.innerText}${_end}`);
                 }
