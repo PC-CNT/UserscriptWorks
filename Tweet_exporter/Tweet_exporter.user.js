@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.79
+// @version         0.0.81
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -161,15 +161,13 @@ TODO: 本文の前後に改行を入れる
             DEBUG([`_tweet_text`, _tweet_text]);
             zip.file("tweet.txt", _tweet_text);
             zip.generateAsync({type: "blob", compression: 'DEFLATE'}).then(content => {
-                if (is_url_single) {
-                    //! リツイートのリンクをリツイートした人のidにするかリツイート先のidにするか迷う
+                if (article_element.querySelector(`a[dir="auto"][role="link"] > time`)) {
+                    let _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
+                    saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`));
+                } else {
                     saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}.zip`));
                     // let _tweet_link = article_element.querySelector(`div[dir="auto"] a[role="link"]:not(a[target="_blank"])`).href;
                     // saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`))
-                } else {
-                    //* 現状のブラウザではcssセレクタの:has()が使えないので疑似的な方法を使用（子要素の親要素って何だよ）
-                    let _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
-                    saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`));
                 }
             });
         });
