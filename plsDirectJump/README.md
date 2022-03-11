@@ -9,5 +9,5 @@
 * 2ちゃんねる（現5ちゃんねる）
 * FC2 Wiki
 * 価格.com
-* Youtubeのコメント欄
+* YouTubeのコメント欄
 * Steam Community　← New!!
