@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            積読
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.3
+// @version         0.0.7
 // @description:ja  てきとう
 // @author          PC-CNT
 // @license         MIT
@@ -34,7 +34,9 @@
         let images = div_slide.querySelectorAll(`img:not([class="viewer_spacer"])`);
 
         images.forEach((image, index) => {
-            zip.file(`${location.search.match(/^.+&page=(.+)/)[1]}_${index}.jpg`, image.src.split(",")[1], {base64: true});
+            // zip.file(`${location.search.match(/^.+&page=(.+)/)[1]}_${index}.jpg`, image.src.split(",")[1], {base64: true});
+            // zip.file(`${div_slide.getAttribute("data-slick-index")* 2 + index}.jpg`, image.src.split(",")[1], {base64: true});
+            zip.file(`${Number(location.search.match(/^.+&page=(.+)/)[1]) + index}.jpg`, image.src.split(",")[1], {base64: true});
         });
 
         // document.querySelector(`span[class="controll page_right"]`).click();
@@ -69,7 +71,7 @@
             add_download_button();
             const target_slide = document.querySelector("div[class='slick-track']");
             console.log(target_slide);
-            const config_slide = {childlist: true, subtree: true};
+            // const config_slide = {childlist: true, subtree: true};
             observer.observe(target_slide, {childList: true, subtree: true});
         }
     });
