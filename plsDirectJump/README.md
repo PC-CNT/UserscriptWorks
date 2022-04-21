@@ -10,4 +10,5 @@
 * FC2 Wiki
 * 価格.com
 * YouTubeのコメント欄
-* Steam Community　← New!!
+* Steam Community
+* WIKIWIKI　← New!!

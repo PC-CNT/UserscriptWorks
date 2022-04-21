@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            積読
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.3
+// @version         0.1.3
 // @description:ja  てきとう
 // @author          PC-CNT
 // @license         MIT
@@ -22,7 +22,40 @@
     let zip = new JSZip();
 
 
+    //? Uncaught RangeError: Maximum call stack size exceeded
+    //? とりあえず保留
+    const scroll_image = () => {
+        // let _page = document.querySelector(`input[id="ipc_viewer_page_input"] > div`).innerText;
+        let _page = window.location.href.match(/^.+page=(\d+).*/)[1];
+
+        if (_page === document.querySelector(`input[id="ipc_viewer_page_input"]`).nextElementSibling.innerText.match(/^\D+(\d+)/)[1]) {
+            export_zip();
+            return;
+        }
+
+        let images = document.querySelectorAll(`div[aria-hidden="false"] > img:not([class="viewer_spacer"])`);
+        images.forEach((image, index) => {
+            zip.file(`${Number(location.search.match(/^.+&page=(.+)/)[1]) + index}.jpg`, image.src.split(",")[1], {base64: true});
+        });
+
+        setTimeout(() => { document.querySelector(`li[class="next_page"]`).click(); }, 2000);
+        // if (_page !== window.location.href.match(/^.+page=(\d+).*/)[1]) {
+        //      scroll_image()
+        // } else {
+        //     return;
+        // }
     
+    }
+
+
+    const test = () => {
+        //* 最初のページに移動
+        document.querySelector(`li[class="first_page"]`).click();
+        //* 画像を取得
+        // scroll_image();
+        //* ダウンロード
+        // export_zip();
+    }
 
 
     const observer = new MutationObserver(() => {
@@ -31,21 +64,40 @@
 
         console.log(div_slide);
     
-        let images = div_slide.querySelectorAll(`img:not([class="viewer_spacer"])`);
+        // let images = div_slide.querySelectorAll(`img:not([class="viewer_spacer"])`);
 
-        images.forEach((image, index) => {
-            zip.file(`${location.search.match(/^.+&page=(.+)/)[1]}_${index}.jpg`, image.src.split(",")[1], {base64: true});
-        });
+        // images.forEach((image, index) => {
+        //     // zip.file(`${location.search.match(/^.+&page=(.+)/)[1]}_${index}.jpg`, image.src.split(",")[1], {base64: true});
+        //     // zip.file(`${div_slide.getAttribute("data-slick-index")* 2 + index}.jpg`, image.src.split(",")[1], {base64: true});
+        //     zip.file(`${Number(location.search.match(/^.+&page=(.+)/)[1]) + index}.jpg`, image.src.split(",")[1], {base64: true});
+        // });
 
-        // document.querySelector(`span[class="controll page_right"]`).click();
+        // setTimeout(() => { document.querySelector(`span[class="controll page_right"]`).click(); }, 1000);
 
     });
 
 
     const export_zip = () => {
+        let slides = document.querySelector(`div[class="slick-track"]`).childNodes;
+        slides.forEach((slide, slide_index) => {
+            let images = slide.querySelectorAll(`img:not([class="viewer_spacer"])`);
+            images.forEach((image, image_index) => {
+                let filename = ``;
+                if ((slide_index * 2 + image_index) == 0) {
+                    filename = `1`;
+                } else {
+                    filename = `${slide_index * 2 + image_index}`;
+                }
+                zip.file(`${filename.padStart(3, "0")}.jpg`, image.src.split(",")[1], {base64: true});
+            });
+        });
+
+
+
         zip.generateAsync({type: "blob", compression: "DEFLATE"}).then( (content) => {
             let D = new Date();
-            saveAs(content, `${D.getFullYear()}-${D.getMonth() + 1}-${D.getDate()}_${D.getHours()}-${D.getMinutes()}-${D.getSeconds()}.zip`);
+            // saveAs(content, `${D.getFullYear()}-${D.getMonth() + 1}-${D.getDate()}_${D.getHours()}-${D.getMinutes()}-${D.getSeconds()}.zip`);
+            saveAs(content, `${(decodeURI(document.querySelector(`li[class="twitter"] > a`).href)).match(/^.*『(.+)』.*/)[1]}.zip`)
         });
     };
 
@@ -54,7 +106,7 @@
 
     const add_download_button = () => {
         let button = document.createElement("button");
-        button.innerText = "download";
+        button.innerText = "Download!";
         button.addEventListener("click", export_zip);
         document.querySelector("ul[class='controll']").appendChild(button);
     };
@@ -69,7 +121,6 @@
             add_download_button();
             const target_slide = document.querySelector("div[class='slick-track']");
             console.log(target_slide);
-            const config_slide = {childlist: true, subtree: true};
             observer.observe(target_slide, {childList: true, subtree: true});
         }
     });
