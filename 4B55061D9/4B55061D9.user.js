@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            積読
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.7
+// @version         0.0.9
 // @description:ja  てきとう
 // @author          PC-CNT
 // @license         MIT
@@ -47,7 +47,8 @@
     const export_zip = () => {
         zip.generateAsync({type: "blob", compression: "DEFLATE"}).then( (content) => {
             let D = new Date();
-            saveAs(content, `${D.getFullYear()}-${D.getMonth() + 1}-${D.getDate()}_${D.getHours()}-${D.getMinutes()}-${D.getSeconds()}.zip`);
+            // saveAs(content, `${D.getFullYear()}-${D.getMonth() + 1}-${D.getDate()}_${D.getHours()}-${D.getMinutes()}-${D.getSeconds()}.zip`);
+            saveAs(content, `${(decodeURI(document.querySelector(`li[class="twitter"] > a`).href)).match(/^.*『(.+)』.*/)[1]}.zip`)
         });
     };
 
