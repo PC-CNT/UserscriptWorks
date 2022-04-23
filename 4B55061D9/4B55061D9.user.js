@@ -97,7 +97,8 @@
         zip.generateAsync({type: "blob", compression: "DEFLATE"}).then( (content) => {
             let D = new Date();
             // saveAs(content, `${D.getFullYear()}-${D.getMonth() + 1}-${D.getDate()}_${D.getHours()}-${D.getMinutes()}-${D.getSeconds()}.zip`);
-            saveAs(content, `${(decodeURI(document.querySelector(`li[class="twitter"] > a`).href)).match(/^.*『(.+)』.*/)[1]}.zip`)
+            // saveAs(content, `${(decodeURI(document.querySelector(`li[class="twitter"] > a`).href)).match(/^.*『(.+)』.*/)[1]}.zip`);
+            saveAs(content, `${(document.querySelector(`div[id="ipc_viewer_navigation"] > h2`).innerText.match(/^.*『(.+)』.*/)[1])}.zip`);
         });
     };
 
