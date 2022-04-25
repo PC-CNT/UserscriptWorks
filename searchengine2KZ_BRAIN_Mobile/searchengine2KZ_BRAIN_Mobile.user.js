@@ -9,7 +9,7 @@
 // @downloadURL     https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js
 // @updateURL       https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @include         http*://www.google.com/search?*
+// @match           http*://www.google.com/search?*
 // @grant           none
 // ==/UserScript==
 

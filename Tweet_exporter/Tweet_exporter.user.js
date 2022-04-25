@@ -8,7 +8,7 @@
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/alpha/Tweet_exporter/Tweet_exporter.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/alpha/Tweet_exporter/Tweet_exporter.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @include         https://twitter.com/*
+// @match           https://twitter.com/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js

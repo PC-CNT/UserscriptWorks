@@ -9,9 +9,9 @@
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @include         *://*
-// @include         https://www.youtube.com/watch?v=*
-// @include         https://steamcommunity.com/*
+// @match           *://*
+// @match           https://www.youtube.com/watch?v=*
+// @match           https://steamcommunity.com/*
 // @grant           none
 // ==/UserScript==
 
