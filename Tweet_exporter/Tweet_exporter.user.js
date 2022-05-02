@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.83
+// @version         0.0.89
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -55,29 +55,34 @@ TODO: 本文の前後に改行を入れる ← 多分いけた
     //* なんかよく分からないけどhtml2canvasで出力した画像が真っ白だった
     //! html2canvasではなくtwitter側が悪かった（Content Security Policyなるものがdata:image…のURLを弾いていたせいで画像が取得できてなかったっぽい）
     const export_tweet = (article_element) => {
-        let zip = new JSZip();
+        const zip = new JSZip();
         domtoimage.toJpeg(article_element).then(blob => {
             zip.file("screenshot.jpg", blob.split(",")[1], {base64: true});
             let _tweet_text = "";
             let current_group = null;
             let _end = "\n";
             let flag_multi_div = false;
-            let is_url_single = (/^https?:\/\/twitter.com\/\w+\/status\/\d+/).test(location.href);
+            const is_url_single = (/^https?:\/\/twitter.com\/\w+\/status\/\d+/).test(location.href);
             //* span:not(span span)にすることで"<span><span>テキスト</span></span>"のような場合にテキストが二重で出力されるのを防ぐ
             //! aria-hidden="true"が付いているspanはリンク（t.co）の代替テキストなので除外する ~~下のif文でクラスを使用して重複を避けたのでいらない~~ やっぱいる
-            article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
-            // article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[data-testid="retweet"], div[data-testid="like"]`).forEach(content => {
+            //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[data-testid="retweet"], div[data-testid="like"]`).forEach(content => {
+            //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
+            article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
                 DEBUG([`content`, content]);
-                //* 1つの要素に属している場合は改行をしない
-                if (content.parentNode.hasAttribute("id")) {
-                    if (current_group === (content.parentNode.getAttribute("id"))) {
-                        _end = "";
-                    } else {
-                        _end = "\n";
-                    }
-                    // if (content.parentNode.getAttribute("id").match(/^id__\w+/)) {
-                    //     current_group = content.parentNode.getAttribute("id");
-                    // }
+                
+                //! ここから${_end}の分岐
+                //* 1つの要素に属している場合 => 後ろに要素がある場合は改行をしない
+                if (content.nextSibling) {
+                    _end = "";
+                // if (content.parentNode.hasAttribute("id")) {
+                //     if (current_group === (content.parentNode.getAttribute("id"))) {
+                //         _end = "";
+                //     } else {
+                //         _end = "\n";
+                //     }
+                //     // if (content.parentNode.getAttribute("id").match(/^id__\w+/)) {
+                //     //     current_group = content.parentNode.getAttribute("id");
+                //     // }
                 } else if (content.closest("a") && content.closest("a").getAttribute("href").match(/^\/\w+\/status\/\d+\/(retweets|with_comments|likes)/)) {
                     //* リツイートやいいねの部分は改行をしない
                     if (current_group === content.closest("a").getAttribute("href")) {
@@ -88,6 +93,8 @@ TODO: 本文の前後に改行を入れる ← 多分いけた
                 } else {
                     _end = "\n";
                 }
+                //! ここまで${_end}の記述
+
                 if (content.tagName === "A" && content.href.match(/^https?:\/\/t\.co\/\w+/)) {
                     //* ツイートに含まれるリンクは自動的にt.coの短縮リンクになるのでaタグから正規表現で絞る
                     // _tweet_text += `${content.href}\n`;
@@ -97,6 +104,10 @@ TODO: 本文の前後に改行を入れる ← 多分いけた
                 if (content.parentNode.getAttribute("role") === "button") {
                     //? content.innerText === "Translate Tweet" &&
                     //* 翻訳の部分を除外
+                    return;
+                }
+                if (content.tagName === "SPAN" && content.tagName === content.parentNode.tagName) {
+                    //* querySelectorAllから(span:not(span span))を消した代わりにここで重複を除外
                     return;
                 }
                 // //* リンク1つにつき1回だけ実行 zipダウンロード終了後にクラスを消す
@@ -169,7 +180,7 @@ TODO: 本文の前後に改行を入れる ← 多分いけた
             zip.file("tweet.txt", _tweet_text);
             zip.generateAsync({type: "blob", compression: 'DEFLATE'}).then(content => {
                 if (article_element.querySelector(`a[dir="auto"][role="link"] > time`)) {
-                    let _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
+                    const _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
                     saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`));
                 } else {
                     saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}.zip`));
@@ -191,7 +202,7 @@ TODO: 本文の前後に改行を入れる ← 多分いけた
     const config = {childList: true, subtree: true};
     const observer = new MutationObserver(() => {
         //* ふぁぼとかの列（idが毎回変わるのでidで指定できないという悲しみ）
-        let groups = document.querySelectorAll("div[role='group']");
+        const groups = document.querySelectorAll("div[role='group']");
         groups.forEach(group => {
             if (location.href.match(/^https?:\/\/twitter\.com\/.*\/status\/\d+\/photo\//)) {
                 return;
