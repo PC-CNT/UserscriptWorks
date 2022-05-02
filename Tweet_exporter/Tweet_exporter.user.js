@@ -25,13 +25,15 @@ TODO: 数が2重で取得されるのをなおす（div[data-testid="retweet"], 
 
 TODO: リンクがおかしい（詳しくはtxtを参照）
 
-TODO: 改行が曖昧なのをどうにかしたい
+TODO: 改行が曖昧なのをどうにかしたい ← 多分いけた
 
 TODO: if文地獄たすけて
 
 TODO: すごいバグるOGPの対応（aria-labelledby="id__\w+"）
 
 TODO: 本文の前後に改行を入れる ← 多分いけた
+
+TODO: 引リツがバグる
 
 */
 
