@@ -170,7 +170,7 @@ TODO: 引リツがバグる
                     zip.file(`${content.closest("a").getAttribute("href").split("/").pop()}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {binary: true});
                 }
                 if (content.hasAttribute("src") && content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\w+_\w+\.(jpg|png|gif)/)) {
-                    //* プロフィール画像 たぶん.*_normal.jpgが一番大きい……はず
+                    //* プロフィール画像 ~~たぶん.*_normal.jpgが一番大きい……はず~~ ←そうでもなかった
                     zip.file(`icon.${(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\w+_\w+\.(jpg|png|gif)/).exec(content.getAttribute("src"))[1]}`, JSZipUtils.getBinaryContent(content.getAttribute("src").replace("_normal", "")), {binary: true});
                 }
                 if (content.getAttribute("data-testid") === "retweet" || content.getAttribute("data-testid") === "like") {
