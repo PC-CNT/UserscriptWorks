@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.89
+// @version         0.0.90
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -169,9 +169,10 @@ TODO: 引リツがバグる
                     _tweet_text += (`${content.getAttribute("src").split("&")[0] + "&name=orig"}\n`);
                     zip.file(`${content.closest("a").getAttribute("href").split("/").pop()}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {binary: true});
                 }
-                if (content.hasAttribute("src") && content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\w+_\w+\.(jpg|png|gif)/)) {
+                if (content.hasAttribute("src") && content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/)) {
                     //* プロフィール画像 ~~たぶん.*_normal.jpgが一番大きい……はず~~ ←そうでもなかった
-                    zip.file(`icon.${(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\w+_\w+\.(jpg|png|gif)/).exec(content.getAttribute("src"))[1]}`, JSZipUtils.getBinaryContent(content.getAttribute("src").replace("_normal", "")), {binary: true});
+                    zip.file(`icon.${(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/).exec(content.getAttribute("src"))[1]}`, JSZipUtils.getBinaryContent(content.getAttribute("src").replace("_normal", "")), {binary: true});
+                    DEBUG([`${content.tagName}`, `${content.getAttribute("src")}`]);
                 }
                 if (content.getAttribute("data-testid") === "retweet" || content.getAttribute("data-testid") === "like") {
                     DEBUG([`${content.tagName}`, `${content.getAttribute("data-testid")}`]);
