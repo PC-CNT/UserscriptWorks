@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.90
+// @version         0.0.91
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -210,8 +210,8 @@ TODO: 引リツがバグる
             if (location.href.match(/^https?:\/\/twitter\.com\/.*\/status\/\d+\/photo\//)) {
                 return;
             }
-            //* 余計なdivを弾く
-            if (group.querySelector("div[role='menu']") || (group.querySelector("div[role='dialog']"))) {
+            //* 余計なdivを弾く（div[data-testid="sheetDialog"は非ログイン時に出てくるダイアログ）
+            if (group.querySelector("div[role='menu']") || (group.querySelector("div[role='dialog']")) || (group.querySelector(`div[data-testid="sheetDialog"]`))) {
                 return;
             }
             //* 既に追加済みなら何もしない
