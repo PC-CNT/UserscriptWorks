@@ -41,7 +41,7 @@ TODO: 引リツがバグる
     "use strict";
     console.log("===START UserscriptWorks/Tweet_exporter===");
 
-    const flag_debug = true;
+    const flag_debug = false;
 
     const DEBUG = (msglist) => {
         if (!flag_debug) {
