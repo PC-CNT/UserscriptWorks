@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.93
+// @version         0.1.0
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/alpha/Tweet_exporter/Tweet_exporter.user.js
-// @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/alpha/Tweet_exporter/Tweet_exporter.user.js
+// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
+// @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           https://twitter.com/*
 // @grant           none
@@ -76,15 +76,6 @@ TODO: 引リツがバグる
                 //* 1つの要素に属している場合 => 後ろに要素がある場合は改行をしない
                 if (content.nextSibling) {
                     _end = "";
-                // if (content.parentNode.hasAttribute("id")) {
-                //     if (current_group === (content.parentNode.getAttribute("id"))) {
-                //         _end = "";
-                //     } else {
-                //         _end = "\n";
-                //     }
-                //     // if (content.parentNode.getAttribute("id").match(/^id__\w+/)) {
-                //     //     current_group = content.parentNode.getAttribute("id");
-                //     // }
                 } else if (content.closest("a") && content.closest("a").getAttribute("href").match(/^\/\w+\/status\/\d+\/(retweets|with_comments|likes)/)) {
                     //* リツイートやいいねの部分は改行をしない
                     if (current_group === content.closest("a").getAttribute("href")) {
@@ -133,7 +124,7 @@ TODO: 引リツがバグる
                     }
                     return;
                 } else if (content.tagName === "SPAN" && content.innerText !== "") {
-                    //* 通常のテキスト　これが最後に来るようにする！
+                    //* 通常のテキスト これが最後に来るようにする！
                     DEBUG([`${content.tagName}`, `${content.innerText}`]);
                     _tweet_text += (`${content.innerText}${_end}`);
                 }
