@@ -8,7 +8,7 @@
 // @downloadURL     
 // @updateURL       
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @include         *://*
+// @match           *://*
 // @grant           none
 // ==/UserScript==
 
