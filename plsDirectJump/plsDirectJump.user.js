@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.3.0
+// @version         0.3.1
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -9,7 +9,7 @@
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @match           *://*
+// @match           *://*/*
 // @match           https://www.youtube.com/watch?v=*
 // @match           https://steamcommunity.com/*
 // @grant           none
@@ -21,7 +21,7 @@
 
     console.log("===START UserscriptWorks/plsDirectJump===");
 
-    const flag_debug = false;
+    const flag_debug = true;
 
     function http_https(host) {
         if (host.match("https")) {
@@ -80,10 +80,10 @@
                 content_text.forEach(block => {
                     // console.info(block);
                     block.querySelectorAll("a").forEach(function(value) {
-                        let a_text = value.innerText;
+                        const a_text = value.innerText;
                         if (isURL(a_text)) {
                             console.info("value:", value);
-                            let _youtube = ["match:Youtube"];
+                            const _youtube = ["match:Youtube"];
                             _youtube.push("絶対ﾊﾟｽ：" + a_text);
                             value.classList.remove("yt-simple-endpoint");
                             value.style.textDecoration = "none";
@@ -101,14 +101,14 @@
 
     function others() {
         document.querySelectorAll("a").forEach(function(value) {
-            let url_source_abs = value.href;
-            let url_source_rel = value.getAttribute("href")
+            const url_source_abs = value.href;
+            const url_source_rel = value.getAttribute("href")
             //TODO: hrefの編集
             if (url_source_abs) {
                 if (url_source_abs.match(/^https?:\/\/jump.(2|5)ch\.net\/\?.*/)) {
                     //* 2ちゃんねる
                     //* (jump.5ch.net/?http://example.com/example.html, jump.2ch.net/?,)
-                    let _2ch = ["match:2ch.net", "絶対ﾊﾟｽ：" + url_source_abs];
+                    const _2ch = ["match:2ch.net", "絶対ﾊﾟｽ：" + url_source_abs];
                     value.setAttribute("href", fixPrefix(url_source_abs.replace(/^https?:\/\/jump.(2|5)ch\.net\/\?/, "")));
                     _2ch.push("変更後ﾊﾟｽ：" + value.href);
                     debug(_2ch);
@@ -117,7 +117,7 @@
                 if (location.hostname.match(/^.+\.wiki\.fc2\.com/)) {
                     //* FC2 Wiki
                     //* (https://example.wiki.fc2.com/jump/https/example.com%2exapmple)
-                    let _fc2 = ["match:FC2 Wiki", "絶対ﾊﾟｽ：" + url_source_abs, "相対ﾊﾟｽ：" + url_source_rel];
+                    const _fc2 = ["match:FC2 Wiki", "絶対ﾊﾟｽ：" + url_source_abs, "相対ﾊﾟｽ：" + url_source_rel];
                     if (url_source_rel.match(/^\/jump\/https?\/.*/)) {
                         value.setAttribute("href", decodeURIComponent(url_source_rel.replace(/^\/jump\/https?\//, http_https(url_source_abs) + "://")));
                         value.setAttribute("target", "_blank");
@@ -129,7 +129,7 @@
                 if (url_source_abs.match(/^https?:\/\/kakaku\.com\/jump\/\?url=.*/)) {
                     //* 価格.com
                     //* (https://kakaku.com/jump/?url=https%3A%2F%2Fwww%2Eexample%2Ecom%2F)
-                    let _kakaku = ["match:価格.com", "絶対ﾊﾟｽ：" + url_source_abs];
+                    const _kakaku = ["match:価格.com", "絶対ﾊﾟｽ：" + url_source_abs];
                     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/kakaku\.com\/jump\/\?url=/, "")));
                     _kakaku.push("変更後ﾊﾟｽ：" + value.href);
                     debug(_kakaku);
@@ -137,7 +137,7 @@
                 if (url_source_abs.match(/^https:\/\/steamcommunity\.com\/linkfilter\/\?url=/)) {
                     //* Steam
                     //* (https://steamcommunity.com/linkfilter/?url=https://example.com/)
-                    let _steam = ["match:Steam", "絶対ﾊﾟｽ：" + url_source_abs];
+                    const _steam = ["match:Steam", "絶対ﾊﾟｽ：" + url_source_abs];
                     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https:\/\/steamcommunity\.com\/linkfilter\/\?url=/, "")));
                     _steam.push("変更後ﾊﾟｽ：" + value.href);
                     debug(_steam);
@@ -145,7 +145,7 @@
                 if (url_source_abs.match(/^https:\/\/re\.wikiwiki\.jp\//)) {
                     //* Wikiwiki
                     //* (https://re.wikiwiki.jp/?http://example.com/)
-                    let _wikiwiki = ["match:Wikiwiki", "絶対ﾊﾟｽ：" + url_source_abs];
+                    const _wikiwiki = ["match:Wikiwiki", "絶対ﾊﾟｽ：" + url_source_abs];
                     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https:\/\/re\.wikiwiki\.jp\/\?/, "")));
                     value.setAttribute("target", "_blank");
                     value.setAttribute("rel", "noopener noreferrer");
