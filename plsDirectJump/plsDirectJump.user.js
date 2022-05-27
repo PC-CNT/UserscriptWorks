@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.3.1
+// @version         0.4.0
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -21,7 +21,7 @@
 
     console.log("===START UserscriptWorks/plsDirectJump===");
 
-    const flag_debug = true;
+    const flag_debug = false;
 
     function http_https(host) {
         if (host.match("https")) {
@@ -99,6 +99,31 @@
         observer.observe(target, config);
     }
 
+    const okwave = () => {
+        const target = document.querySelector(`body`)
+        const config = {childList: true, subtree: true}
+
+        const observer = new MutationObserver(() => {
+            const al = document.querySelectorAll(`a`);
+            al.forEach((value) => {
+                if (value.href.match(/^https:\/\/okwave\.jp\/jump\?url=.+/)) {
+                    // * OKWAVE
+                    // * (https://okwave.jp/jump?url=https%3A%2F%2Fexample.com%2F)
+                    const _okwave = ["match:OKWAVE", "絶対ﾊﾟｽ：" + value.href];
+                    value.setAttribute("href", decodeURIComponent(value.href.replace(/^https:\/\/okwave\.jp\/jump\?url=/, "")));
+                    _okwave.push("変更後ﾊﾟｽ：" + value.href);
+                    debug(_okwave);
+                } else {
+                    observer.disconnect();
+                }
+            });
+        });
+
+        observer.observe(target, config);
+    }
+
+
+
     function others() {
         document.querySelectorAll("a").forEach(function(value) {
             const url_source_abs = value.href;
@@ -107,7 +132,7 @@
             if (url_source_abs) {
                 if (url_source_abs.match(/^https?:\/\/jump.(2|5)ch\.net\/\?.*/)) {
                     //* 2ちゃんねる
-                    //* (jump.5ch.net/?http://example.com/example.html, jump.2ch.net/?,)
+                    //* (https://jump.5ch.net/?http://example.com/, jump.2ch.net/?,)
                     const _2ch = ["match:2ch.net", "絶対ﾊﾟｽ：" + url_source_abs];
                     value.setAttribute("href", fixPrefix(url_source_abs.replace(/^https?:\/\/jump.(2|5)ch\.net\/\?/, "")));
                     _2ch.push("変更後ﾊﾟｽ：" + value.href);
@@ -156,8 +181,10 @@
         });
     }
 
-    if (location.host.match(/^www\.+youtube\.com/)) {
+    if (location.host.match(/^www\.youtube\.com/)) {
         youtube();
+    } else if (location.host.match(/^okwave\.jp/)) {
+        okwave();
     } else {
         others();
     }
