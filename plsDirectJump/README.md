@@ -11,4 +11,5 @@
 * 価格.com
 * YouTubeのコメント欄
 * Steam Community
-* WIKIWIKI　← New!!
+* WIKIWIKI
+* OKWAVE ← New!!
