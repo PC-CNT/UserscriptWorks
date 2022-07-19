@@ -16,7 +16,7 @@
     // http://www.geocities.jp/example/
     console.log("===START UserscriptWorks/Back2GeoCities===");
     document.querySelectorAll("a").forEach(function (a_tag) {
-        if (a_tag.href.match(/^https?:\/\/.*\.geocities\.(co\.jp|jp|com)\/.*/)) {
+        if (a_tag.href.match(/^https?:\/\/(www\.)?geocities\.(co\.jp|jp|com)\/.*/i)) {
             console.log("match: " + a_tag.href);
             a_tag.setAttribute("href", "https://web.archive.org/web/0/" + a_tag.href);
             a_tag.setAttribute("target", "_blank");
