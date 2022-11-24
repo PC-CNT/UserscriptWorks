@@ -2,6 +2,7 @@
 // @name            GitHub show all Assets
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
 // @version         1.0
+// @icon            https://github.com/fluidicon.png
 // @description     "Show all xx assets"と最新以降のAssetsを自動で開くようにする
 // @author          PC-CNT
 // @license         MIT
@@ -12,7 +13,7 @@
 // ==/UserScript==
 
 
-window.addEventListener("load", (event) => {
+window.addEventListener("load", (_event) => {
 
     document.querySelectorAll(`button[class='js-release-asset-untruncate-btn btn-link']`).forEach((button) => {
         button.click();
