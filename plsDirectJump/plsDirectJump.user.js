@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.4.0
+// @version         0.5.0
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -19,7 +19,7 @@
 ( () => {
     "use strict";
 
-    console.log("===START UserscriptWorks/plsDirectJump===");
+    // console.log("===START UserscriptWorks/plsDirectJump===");
 
     const flag_debug = false;
 
@@ -122,6 +122,31 @@
         observer.observe(target, config);
     }
 
+    const atsumaru = () => {
+        //* ゲームアツマール
+        //* (https://game.nicovideo.jp/atsumaru/jump?link_in=gamepage&url=https%3A%2F%2Fexample.com%2F)
+        //! いつもの書き方だと動的にhrefを変更されているため正常に動作しない（たぶんReact） なのでa要素ごと置換して対応する
+        // const target = document.querySelector(`div[class="GameDetail__GameDetail__LeftColumn"]`)
+        const target = document.querySelector(`body`)
+        const config = {childList: true, subtree: true}
+
+        const observer = new MutationObserver(() => {
+            const al = document.querySelectorAll(`a`);
+            al.forEach((value) => {
+                if (value.href.match(/^https:\/\/game\.nicovideo.jp\/atsumaru\/jump\?(link_in=gamepage&)?url=/)) {
+                    const _atsumaru = ["match:ゲームアツマール", "絶対ﾊﾟｽ：" + value.href];
+                    const _clone = value.cloneNode(true);
+                    _clone.setAttribute("href", decodeURIComponent(value.href.replace(/^https:\/\/game\.nicovideo.jp\/atsumaru\/jump\?(link_in=gamepage&)?url=/, "")));
+                    value.parentNode.replaceChild(_clone, value);
+                    _atsumaru.push("変更後ﾊﾟｽ：" + _clone.href);
+                    debug(_atsumaru);
+                }
+            });
+            // observer.disconnect();
+        });
+
+        observer.observe(target, config);
+    }
 
 
     function others() {
@@ -185,9 +210,11 @@
         youtube();
     } else if (location.host.match(/^okwave\.jp/)) {
         okwave();
+    } else if (location.host.match(/^game\.nicovideo\.jp/)) {
+        atsumaru();
     } else {
         others();
     }
 
-    console.log("===END UserscriptWorks/plsDirectJump===");
+    // console.log("===END UserscriptWorks/plsDirectJump===");
 })();

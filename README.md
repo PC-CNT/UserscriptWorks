@@ -4,46 +4,17 @@
 
 my some Userscript
 
-## 説明
+## Userscript
 
-今まで書いたUserscriptをまとめて置くためのレポジトリです。
-
-リクエストを受けて即興で書いたものが多いので、多分n番煎じです。
-
-## Install
-
-[plsDirectJump](https://github.com/PC-CNT/UserscriptWorks/raw/main/plsDirectJump/plsDirectJump.user.js)
-
-[back2GeoCities](https://github.com/PC-CNT/UserscriptWorks/raw/main/back2GeoCities/back2GeoCities.user.js)
-
-[searchengine2KZ_BRAIN_Mobile](https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js)
-
-[kakaku_websc](https://github.com/PC-CNT/UserscriptWorks/raw/main/kakaku_websc/kakaku_websc.user.js)
-
-[Tweet_exporter](https://github.com/PC-CNT/UserscriptWorks/raw/alpha/Tweet_exporter/Tweet_exporter.user.js)
-
-[4B55061D9](https://github.com/PC-CNT/UserscriptWorks/raw/main/4B55061D9/4B55061D9.user.js)
+| Name | js直リン |
+| :---: | :---: |
+|[plsDirectJump](./plsDirectJump/) | [Install](./plsDirectJump/plsDirectJump.user.js?raw=1)|
+|[GitHub show all Assets](./GitHub_show_all_Assets/)|[Install](./GitHub_show_all_Assets/GitHub_show_all_Assets.user.js?raw=1)|
+|[back2GeoCities](./back2GeoCities/)|[Install](./back2GeoCities/back2GeoCities.user.js?raw=1)|
+|[Search engine to KZ BRAIN Mobile](./searchengine2KZ_BRAIN_Mobile/)|[Install](./searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js?raw=1)|
+|[Tweet_exporter](./Tweet_exporter/)|[Install](./Tweet_exporter/Tweet_exporter.user.js?raw=1)|
+|[スラド - 米欄自動展開](./srad_comment_opener/)|[Install](./srad_comment_opener/srad_comment_opener.user.js?raw=1)|
 
 ## Usage
 
-1. 拡張機能のインストール
-
-    Chromeの場合は[Tampermonkey](https://www.tampermonkey.net/ "Tampermonkey")
-
-    Firefoxの場合は[Greasemonkey](https://addons.mozilla.org/ja/firefox/addon/greasemonkey/ "Greasemonkey")
-
-    をインスコします
-
-2. Userscriptのインストール
-
-    各スクリプトのjsファイルを開くと、自動的にインストールの画面に移ります。
-
-    「インストール」を押せば完了です。
-
-### その他
-
-- Windows 10 Pro
-- Chrome Canary
-- Tampermonkey Beta
-
-にて動作検証しています。
+[Tampermonkey](https://www.tampermonkey.net/index.php?locale=en)拡張機能のインストールが必須です

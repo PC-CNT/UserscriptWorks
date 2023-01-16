@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.0
+// @version         0.1.1
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -186,11 +186,13 @@ TODO: 引リツがバグる
             }
             //* 余計なdivを弾く（div[data-testid="sheetDialog"は非ログイン時に出てくるダイアログ、
             //* div[data-testid="confirmationSheetDialog"]はWelcome! Now you can Follow them.のやつ）
+            //* selectは垢を作るときの生年月日選択
             if (
                 (group.querySelector("div[role='menu']")) ||
                 (group.querySelector("div[role='dialog']")) ||
                 (group.querySelector(`div[data-testid="sheetDialog"]`)) ||
-                (group.querySelector(`div[data-testid="confirmationSheetDialog"]`))
+                (group.querySelector(`div[data-testid="confirmationSheetDialog"]`)) ||
+                (group.querySelector(`select`))
             ) {
                 return;
             }
