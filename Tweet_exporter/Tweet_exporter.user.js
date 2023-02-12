@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.2
+// @version         0.1.3
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -57,6 +57,11 @@ TODO: 引リツがバグる
     //* なんかよく分からないけどhtml2canvasで出力した画像が真っ白だった
     //! html2canvasではなくtwitter側が悪かった（Content Security Policyなるものがdata:image…のURLを弾いていたせいで画像が取得できてなかったっぽい）
     const export_tweet = (article_element) => {
+
+        // console.log(article_element.querySelector(`.export-tweet`))
+
+        article_element.querySelector(`.export-tweet`).style.display = "none";
+
         const zip = new JSZip();
         domtoimage.toJpeg(article_element).then(blob => {
             zip.file("screenshot.jpg", blob.split(",")[1], {base64: true});
@@ -170,12 +175,14 @@ TODO: 引リツがバグる
                     // let _tweet_link = article_element.querySelector(`div[dir="auto"] a[role="link"]:not(a[target="_blank"])`).href;
                     // saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`))
                 }
-            });
-        });
+            }).then(() =>{
+                article_element.querySelector(`.export-tweet`).style.display = "";
+            })
+        })
     };
 
 
-    const target = document.querySelector("body");
+    const target = document.body;
     const config = {childList: true, subtree: true};
     const observer = new MutationObserver(() => {
         //* ふぁぼとかの列（idが毎回変わるのでidで指定できないという悲しみ）
@@ -206,9 +213,8 @@ TODO: 引リツがバグる
             group.classList.add("tweet-exporter-added");
             const _sharemenu_div = group.lastElementChild;
             const _export_div = _sharemenu_div.cloneNode(true);
-            _export_div.querySelector("svg").innerHTML = `<g transform="rotate(180, 12, 8.4)"><path d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z"></path></g><g><path d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z"></path></g>`
-            // _export_div.querySelector("g").setAttribute("transform", "rotate(180, 12, 8.4)");
-            // _export_div.setAttribute("tabindex", "0");
+            _export_div.querySelector("svg").innerHTML = `<g transform="rotate(180, 12, 8.4)"><path d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z"></path></g><g><path d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z"></path></g>`;
+            _export_div.classList.add("export-tweet");
             group.insertAdjacentElement("beforeend", _export_div);
             group.lastElementChild.addEventListener("click", (e) => {
                 e.stopPropagation();
