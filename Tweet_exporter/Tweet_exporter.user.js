@@ -78,7 +78,7 @@ TODO: フォーマット関連の修正
             //! aria-hidden="true"が付いているspanはリンク（t.co）の代替テキストなので除外する ~~下のif文でクラスを使用して重複を避けたのでいらない~~ やっぱいる
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[data-testid="retweet"], div[data-testid="like"]`).forEach(content => {
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
-            article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
+            article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id], video`).forEach(content => {
                 DEBUG([`content`, content]);
 
                 //! ここから${_end}の分岐
@@ -106,6 +106,7 @@ TODO: フォーマット関連の修正
                 if (content.parentNode.getAttribute("role") === "button") {
                     //? content.innerText === "Translate Tweet" &&
                     //* 翻訳の部分を除外
+                    DEBUG([`button`, content.innerText])
                     return;
                 }
                 if (content.tagName === "SPAN" && content.tagName === content.parentNode.tagName) {
@@ -157,6 +158,12 @@ TODO: フォーマット関連の修正
                     DEBUG([`${content.tagName}`, `${content.getAttribute("src").split("&")[0] + "&name=orig"}`]);
                     _tweet_text += (`${content.getAttribute("src").split("&")[0] + "&name=orig"}\n`);
                     zip.file(`${content.closest("a").getAttribute("href").split("/").pop()}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {
+                        binary: true
+                    });
+                }
+                if (content.tagName === "VIDEO" && content.getAttribute("src").match(/^https:\/\/video\.twimg\.com\/tweet_video\/.+\..+/)) {
+                    //* gif（gifではない）
+                    zip.file(`${content.src.replace(/^https:\/\/video\.twimg\.com\/tweet_video\//, "")}`, JSZipUtils.getBinaryContent(content.src), {
                         binary: true
                     });
                 }
