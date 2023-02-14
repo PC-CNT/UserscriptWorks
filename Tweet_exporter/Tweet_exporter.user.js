@@ -105,9 +105,8 @@ TODO: フォーマット関連の修正
                     _tweet_text += `${content.text.replace(/^(.+)…/, "$1")}\n`;
                 }
 
-                if (content.parentNode.getAttribute("role") === "button") {
-                    //? content.innerText === "Translate Tweet" &&
-                    //* 翻訳の部分を除外
+                if (content.closest(`div[role="button"]`)) {
+                    //* 翻訳とALTの部分を除外
                     DEBUG([`button`, content.innerText])
                     return;
                 }
