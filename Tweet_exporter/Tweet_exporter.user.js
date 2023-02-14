@@ -35,9 +35,11 @@ TODO: 本文の前後に改行を入れる ← 多分いけた
 
 TODO: 引リツがバグる
 
+TODO: フォーマット関連の修正
+
 */
 
-( () => {
+(() => {
     "use strict";
     console.log("===START UserscriptWorks/Tweet_exporter===");
 
@@ -64,7 +66,9 @@ TODO: 引リツがバグる
 
         const zip = new JSZip();
         domtoimage.toJpeg(article_element).then(blob => {
-            zip.file("screenshot.jpg", blob.split(",")[1], {base64: true});
+            zip.file("screenshot.jpg", blob.split(",")[1], {
+                base64: true
+            });
             let _tweet_text = "";
             let current_group = null;
             let _end = "\n";
@@ -76,7 +80,7 @@ TODO: 引リツがバグる
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
             article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
                 DEBUG([`content`, content]);
-                
+
                 //! ここから${_end}の分岐
                 //* 1つの要素に属している場合 => 後ろに要素がある場合は改行をしない
                 if (content.nextSibling) {
@@ -152,11 +156,15 @@ TODO: 引リツがバグる
                     //* urlの末尾に&name=origをつけると元のサイズの画像を取得できる
                     DEBUG([`${content.tagName}`, `${content.getAttribute("src").split("&")[0] + "&name=orig"}`]);
                     _tweet_text += (`${content.getAttribute("src").split("&")[0] + "&name=orig"}\n`);
-                    zip.file(`${content.closest("a").getAttribute("href").split("/").pop()}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {binary: true});
+                    zip.file(`${content.closest("a").getAttribute("href").split("/").pop()}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {
+                        binary: true
+                    });
                 }
                 if (content.hasAttribute("src") && content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/)) {
                     //* プロフィール画像 ~~たぶん.*_normal.jpgが一番大きい……はず~~ ←そうでもなかった
-                    zip.file(`icon.${(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/).exec(content.getAttribute("src"))[1]}`, JSZipUtils.getBinaryContent(content.getAttribute("src").replace("_normal", "")), {binary: true});
+                    zip.file(`icon.${(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/).exec(content.getAttribute("src"))[1]}`, JSZipUtils.getBinaryContent(content.getAttribute("src").replace("_normal", "")), {
+                        binary: true
+                    });
                     DEBUG([`${content.tagName}`, `${content.getAttribute("src")}`]);
                 }
                 if (content.getAttribute("data-testid") === "retweet" || content.getAttribute("data-testid") === "like") {
@@ -166,7 +174,10 @@ TODO: 引リツがバグる
             });
             DEBUG([`_tweet_text`, _tweet_text]);
             zip.file("tweet.txt", _tweet_text);
-            zip.generateAsync({type: "blob", compression: 'DEFLATE'}).then(content => {
+            zip.generateAsync({
+                type: "blob",
+                compression: 'DEFLATE'
+            }).then(content => {
                 if (article_element.querySelector(`a[dir="auto"][role="link"] > time`)) {
                     const _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
                     saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`));
@@ -175,7 +186,7 @@ TODO: 引リツがバグる
                     // let _tweet_link = article_element.querySelector(`div[dir="auto"] a[role="link"]:not(a[target="_blank"])`).href;
                     // saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`))
                 }
-            }).then(() =>{
+            }).then(() => {
                 article_element.querySelector(`.export-tweet`).style.display = "";
             })
         })
@@ -183,7 +194,10 @@ TODO: 引リツがバグる
 
 
     const target = document.body;
-    const config = {childList: true, subtree: true};
+    const config = {
+        childList: true,
+        subtree: true
+    };
     const observer = new MutationObserver(() => {
         //* ふぁぼとかの列（idが毎回変わるのでidで指定できないという悲しみ）
         const groups = document.querySelectorAll("div[role='group']");
