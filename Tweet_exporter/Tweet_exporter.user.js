@@ -112,14 +112,14 @@ TODO: フォーマット関連の修正
                     return;
                 }
 
-                if (content.tagName === "SPAN" && content.tagName === content.parentNode.tagName) {
-                    //* querySelectorAllから(span:not(span span))を消した代わりにここで重複を除外
+                if (content.closest(`div[data-testid="card.wrapper"]`)) {
+                    //* Twitter Cardを除外 つべの埋め込みとかも除外できるっぽい
                     return;
                 }
 
-                if (content.closest(`[aria-labelledby][data-testid="card.wrapper"]`)) {
-                    //* OGPのグループ……のはず (`div[aria-labelledby="id__\w+ id__\w+"] > div[class="css-1dbjc4n r-1s2bzr4"] > div[aria-labelledby="id__\w+ id__\w+"]`)
-                    _tweet_text += ``;
+                if (content.tagName === "SPAN" && content.tagName === content.parentNode.tagName) {
+                    //* querySelectorAllから(span:not(span span))を消した代わりにここで重複を除外
+                    return;
                 }
 
                 if (content.tagName === "TIME") {
@@ -137,22 +137,20 @@ TODO: フォーマット関連の修正
                         flag_multi_div = true;
                     }
                     return;
+                } else if ((content.hasAttribute("src")) && (content.getAttribute("src").match(/^https?:\/\/.*\.twimg\.com\/emoji\//))) {
+                    //* 絵文字 imgの中にsvgがある
+                    DEBUG([`${content.tagName}`, `${content.getAttribute("alt")}`]);
+                    _tweet_text += (`${content.alt}${_end}`);
                 } else if (content.tagName === "SPAN" && content.innerText !== "") {
                     //* 通常のテキスト これが最後に来るようにする！
                     DEBUG([`${content.tagName}`, `${content.innerText}`]);
                     _tweet_text += (`${content.innerText}${_end}`);
                 }
-                
+
                 // if (content.hasAttribute("aria-hidden") && content.getAttribute("aria-hidden") === "true") {
                 //     //* リンクの代替テキストを除外
                 //     return;
                 // }
-
-                if ((content.hasAttribute("src")) && (content.getAttribute("src").match(/^https?:\/\/.*\.twimg\.com\/emoji\//))) {
-                    //* 絵文字 imgの中にsvgがある
-                    DEBUG([`${content.tagName}`, `${content.getAttribute("alt")}`]);
-                    _tweet_text += content.getAttribute("alt");
-                }
 
                 if (content.hasAttribute("src") && (content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/media\//))) {
                     //* 添付画像
