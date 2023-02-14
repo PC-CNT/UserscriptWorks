@@ -43,7 +43,7 @@ TODO: フォーマット関連の修正
     "use strict";
     console.log("===START UserscriptWorks/Tweet_exporter===");
 
-    const flag_debug = false;
+    const flag_debug = true;
 
     const DEBUG = (msglist) => {
         if (!flag_debug) {
@@ -78,6 +78,7 @@ TODO: フォーマット関連の修正
             //! aria-hidden="true"が付いているspanはリンク（t.co）の代替テキストなので除外する ~~下のif文でクラスを使用して重複を避けたのでいらない~~ やっぱいる
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[data-testid="retweet"], div[data-testid="like"]`).forEach(content => {
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
+            //? article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id], video`).forEach(content => {
             article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id], video`).forEach(content => {
                 DEBUG([`content`, content]);
 
@@ -103,12 +104,14 @@ TODO: フォーマット関連の修正
                     //* 非表示のテキストに元のリンクが書いてあるっぽい？
                     _tweet_text += `${content.text.replace(/^(.+)…/, "$1")}\n`;
                 }
+
                 if (content.parentNode.getAttribute("role") === "button") {
                     //? content.innerText === "Translate Tweet" &&
                     //* 翻訳の部分を除外
                     DEBUG([`button`, content.innerText])
                     return;
                 }
+
                 if (content.tagName === "SPAN" && content.tagName === content.parentNode.tagName) {
                     //* querySelectorAllから(span:not(span span))を消した代わりにここで重複を除外
                     return;
@@ -118,9 +121,10 @@ TODO: フォーマット関連の修正
                     //* OGPのグループ……のはず (`div[aria-labelledby="id__\w+ id__\w+"] > div[class="css-1dbjc4n r-1s2bzr4"] > div[aria-labelledby="id__\w+ id__\w+"]`)
                     _tweet_text += ``;
                 }
-                //* <time>要素 正確な時間はdatetime属性で取得できる（シングルには存在しない） https://developer.mozilla.org/ja/docs/Web/HTML/Element/time
-                //! tagNameは全部大文字の"TIME"らしい "time"だと思ってたせいで結構沼った
+
                 if (content.tagName === "TIME") {
+                    //* <time>要素 正確な時間はdatetime属性で取得できる（シングルには存在しない） https://developer.mozilla.org/ja/docs/Web/HTML/Element/time
+                    //! tagNameは全部大文字の"TIME"らしい "time"だと思ってたせいで結構沼った
                     _tweet_text += (`${content.getAttribute("datetime")}\n\n`);
                 } else if (content.parentNode.hasAttribute("aria-hidden") && content.parentNode.getAttribute("aria-hidden") === "true") {
                     //* 「·」←これ
@@ -138,20 +142,18 @@ TODO: フォーマット関連の修正
                     DEBUG([`${content.tagName}`, `${content.innerText}`]);
                     _tweet_text += (`${content.innerText}${_end}`);
                 }
+                
                 // if (content.hasAttribute("aria-hidden") && content.getAttribute("aria-hidden") === "true") {
                 //     //* リンクの代替テキストを除外
                 //     return;
                 // }
-                if (content.closest(`div[style="color: rgb(29, 155, 240);"]`)) {
-                    //* 何かを除外してるんだけどこれ何を除外してるんだい？？？？？
-                    //* コンソールで入力してもホームのボタンしか選択されないんだが？？？？
-                    return;
-                }
+
                 if ((content.hasAttribute("src")) && (content.getAttribute("src").match(/^https?:\/\/.*\.twimg\.com\/emoji\//))) {
                     //* 絵文字 imgの中にsvgがある
                     DEBUG([`${content.tagName}`, `${content.getAttribute("alt")}`]);
                     _tweet_text += content.getAttribute("alt");
                 }
+
                 if (content.hasAttribute("src") && (content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/media\//))) {
                     //* 添付画像
                     //* urlの末尾に&name=origをつけると元のサイズの画像を取得できる
@@ -161,12 +163,14 @@ TODO: フォーマット関連の修正
                         binary: true
                     });
                 }
+
                 if (content.tagName === "VIDEO" && content.getAttribute("src").match(/^https:\/\/video\.twimg\.com\/tweet_video\/.+\..+/)) {
                     //* gif（gifではない）
                     zip.file(`${content.src.replace(/^https:\/\/video\.twimg\.com\/tweet_video\//, "")}`, JSZipUtils.getBinaryContent(content.src), {
                         binary: true
                     });
                 }
+
                 if (content.hasAttribute("src") && content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/)) {
                     //* プロフィール画像 ~~たぶん.*_normal.jpgが一番大きい……はず~~ ←そうでもなかった
                     zip.file(`icon.${(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/).exec(content.getAttribute("src"))[1]}`, JSZipUtils.getBinaryContent(content.getAttribute("src").replace("_normal", "")), {
@@ -174,11 +178,14 @@ TODO: フォーマット関連の修正
                     });
                     DEBUG([`${content.tagName}`, `${content.getAttribute("src")}`]);
                 }
+
                 if (content.getAttribute("data-testid") === "retweet" || content.getAttribute("data-testid") === "like") {
                     DEBUG([`${content.tagName}`, `${content.getAttribute("data-testid")}`]);
                     _tweet_text += (`${content.getAttribute("data-testid")}\n`);
                 }
+
             });
+
             DEBUG([`_tweet_text`, _tweet_text]);
             zip.file("tweet.txt", _tweet_text);
             zip.generateAsync({
