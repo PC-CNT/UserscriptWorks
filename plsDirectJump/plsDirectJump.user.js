@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.5.0
+// @version         0.6.0
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -148,6 +148,27 @@
         observer.observe(target, config);
     }
 
+    const futaba = () => {
+        //* ふたば☆ちゃんねる
+        //* (https://www.2chan.net/bin/jump.php?https://example.com)
+        const target = document.querySelector(`html`)
+        const config = {childList: true, subtree: true}
+
+        const observer = new MutationObserver(() => {
+            const al = document.querySelectorAll(`a`);
+            al.forEach((value) => {
+                if (value.href.match(/^https?:\/\/.+\.2chan\.net\/bin\/jump\.php\?/)) {
+                    const _futaba = ["match:ふたば☆ちゃんねる", "絶対ﾊﾟｽ：" + value.href];
+                    value.setAttribute("href", decodeURIComponent(value.href.replace(/^https?:\/\/.+\.2chan\.net\/bin\/jump\.php\?/, "")));
+                    value.setAttribute("rel", "noopener noreferrer");
+                    _futaba.push("変更後ﾊﾟｽ：" + value.href);
+                    debug(_futaba);
+                }
+            });
+        });
+        observer.observe(target, config);
+    }
+
 
     function others() {
         document.querySelectorAll("a").forEach(function(value) {
@@ -212,6 +233,8 @@
         okwave();
     } else if (location.host.match(/^game\.nicovideo\.jp/)) {
         atsumaru();
+    } else if (location.host.match(/^.+\.2chan\.net/)) {
+        futaba();
     } else {
         others();
     }
