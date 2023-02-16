@@ -35,13 +35,15 @@ TODO: 本文の前後に改行を入れる ← 多分いけた
 
 TODO: 引リツがバグる
 
+TODO: フォーマット関連の修正
+
 */
 
-( () => {
+(() => {
     "use strict";
     console.log("===START UserscriptWorks/Tweet_exporter===");
 
-    const flag_debug = false;
+    const flag_debug = true;
 
     const DEBUG = (msglist) => {
         if (!flag_debug) {
@@ -64,7 +66,9 @@ TODO: 引リツがバグる
 
         const zip = new JSZip();
         domtoimage.toJpeg(article_element).then(blob => {
-            zip.file("screenshot.jpg", blob.split(",")[1], {base64: true});
+            zip.file("screenshot.jpg", blob.split(",")[1], {
+                base64: true
+            });
             let _tweet_text = "";
             let current_group = null;
             let _end = "\n";
@@ -74,9 +78,10 @@ TODO: 引リツがバグる
             //! aria-hidden="true"が付いているspanはリンク（t.co）の代替テキストなので除外する ~~下のif文でクラスを使用して重複を避けたのでいらない~~ やっぱいる
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[data-testid="retweet"], div[data-testid="like"]`).forEach(content => {
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
-            article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
+            //? article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id], video`).forEach(content => {
+            article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id], video`).forEach(content => {
                 DEBUG([`content`, content]);
-                
+
                 //! ここから${_end}の分岐
                 //* 1つの要素に属している場合 => 後ろに要素がある場合は改行をしない
                 if (content.nextSibling) {
@@ -99,23 +104,26 @@ TODO: 引リツがバグる
                     //* 非表示のテキストに元のリンクが書いてあるっぽい？
                     _tweet_text += `${content.text.replace(/^(.+)…/, "$1")}\n`;
                 }
-                if (content.parentNode.getAttribute("role") === "button") {
-                    //? content.innerText === "Translate Tweet" &&
-                    //* 翻訳の部分を除外
+
+                if (content.closest(`div[role="button"]`)) {
+                    //* 翻訳とALTの部分を除外
+                    DEBUG([`button`, content.innerText])
                     return;
                 }
+
+                if (content.closest(`div[data-testid="card.wrapper"]`)) {
+                    //* Twitter Cardを除外 つべの埋め込みとかも除外できるっぽい
+                    return;
+                }
+
                 if (content.tagName === "SPAN" && content.tagName === content.parentNode.tagName) {
                     //* querySelectorAllから(span:not(span span))を消した代わりにここで重複を除外
                     return;
                 }
 
-                if (content.closest(`[aria-labelledby][data-testid="card.wrapper"]`)) {
-                    //* OGPのグループ……のはず (`div[aria-labelledby="id__\w+ id__\w+"] > div[class="css-1dbjc4n r-1s2bzr4"] > div[aria-labelledby="id__\w+ id__\w+"]`)
-                    _tweet_text += ``;
-                }
-                //* <time>要素 正確な時間はdatetime属性で取得できる（シングルには存在しない） https://developer.mozilla.org/ja/docs/Web/HTML/Element/time
-                //! tagNameは全部大文字の"TIME"らしい "time"だと思ってたせいで結構沼った
                 if (content.tagName === "TIME") {
+                    //* <time>要素 正確な時間はdatetime属性で取得できる（シングルには存在しない） https://developer.mozilla.org/ja/docs/Web/HTML/Element/time
+                    //! tagNameは全部大文字の"TIME"らしい "time"だと思ってたせいで結構沼った
                     _tweet_text += (`${content.getAttribute("datetime")}\n\n`);
                 } else if (content.parentNode.hasAttribute("aria-hidden") && content.parentNode.getAttribute("aria-hidden") === "true") {
                     //* 「·」←これ
@@ -128,45 +136,59 @@ TODO: 引リツがバグる
                         flag_multi_div = true;
                     }
                     return;
+                } else if ((content.hasAttribute("src")) && (content.getAttribute("src").match(/^https?:\/\/.*\.twimg\.com\/emoji\//))) {
+                    //* 絵文字 imgの中にsvgがある
+                    DEBUG([`${content.tagName}`, `${content.getAttribute("alt")}`]);
+                    _tweet_text += (`${content.alt}${_end}`);
                 } else if (content.tagName === "SPAN" && content.innerText !== "") {
                     //* 通常のテキスト これが最後に来るようにする！
                     DEBUG([`${content.tagName}`, `${content.innerText}`]);
                     _tweet_text += (`${content.innerText}${_end}`);
                 }
+
                 // if (content.hasAttribute("aria-hidden") && content.getAttribute("aria-hidden") === "true") {
                 //     //* リンクの代替テキストを除外
                 //     return;
                 // }
-                if (content.closest(`div[style="color: rgb(29, 155, 240);"]`)) {
-                    //* 何かを除外してるんだけどこれ何を除外してるんだい？？？？？
-                    //* コンソールで入力してもホームのボタンしか選択されないんだが？？？？
-                    return;
-                }
-                if ((content.hasAttribute("src")) && (content.getAttribute("src").match(/^https?:\/\/.*\.twimg\.com\/emoji\//))) {
-                    //* 絵文字 imgの中にsvgがある
-                    DEBUG([`${content.tagName}`, `${content.getAttribute("alt")}`]);
-                    _tweet_text += content.getAttribute("alt");
-                }
+
                 if (content.hasAttribute("src") && (content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/media\//))) {
                     //* 添付画像
                     //* urlの末尾に&name=origをつけると元のサイズの画像を取得できる
                     DEBUG([`${content.tagName}`, `${content.getAttribute("src").split("&")[0] + "&name=orig"}`]);
                     _tweet_text += (`${content.getAttribute("src").split("&")[0] + "&name=orig"}\n`);
-                    zip.file(`${content.closest("a").getAttribute("href").split("/").pop()}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {binary: true});
+                    zip.file(`${content.closest("a").getAttribute("href").split("/").pop()}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {
+                        binary: true
+                    });
                 }
+
+                if (content.tagName === "VIDEO" && content.getAttribute("src").match(/^https:\/\/video\.twimg\.com\/tweet_video\/.+\..+/)) {
+                    //* gif（gifではない）
+                    zip.file(`${content.src.replace(/^https:\/\/video\.twimg\.com\/tweet_video\//, "")}`, JSZipUtils.getBinaryContent(content.src), {
+                        binary: true
+                    });
+                }
+
                 if (content.hasAttribute("src") && content.getAttribute("src").match(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/)) {
                     //* プロフィール画像 ~~たぶん.*_normal.jpgが一番大きい……はず~~ ←そうでもなかった
-                    zip.file(`icon.${(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/).exec(content.getAttribute("src"))[1]}`, JSZipUtils.getBinaryContent(content.getAttribute("src").replace("_normal", "")), {binary: true});
+                    zip.file(`icon.${(/^https?:\/\/pbs\.twimg\.com\/profile_images\/\d+\/\S+_\S+\.(jpg|png|gif)/).exec(content.getAttribute("src"))[1]}`, JSZipUtils.getBinaryContent(content.getAttribute("src").replace("_normal", "")), {
+                        binary: true
+                    });
                     DEBUG([`${content.tagName}`, `${content.getAttribute("src")}`]);
                 }
+
                 if (content.getAttribute("data-testid") === "retweet" || content.getAttribute("data-testid") === "like") {
                     DEBUG([`${content.tagName}`, `${content.getAttribute("data-testid")}`]);
                     _tweet_text += (`${content.getAttribute("data-testid")}\n`);
                 }
+
             });
+
             DEBUG([`_tweet_text`, _tweet_text]);
             zip.file("tweet.txt", _tweet_text);
-            zip.generateAsync({type: "blob", compression: 'DEFLATE'}).then(content => {
+            zip.generateAsync({
+                type: "blob",
+                compression: 'DEFLATE'
+            }).then(content => {
                 if (article_element.querySelector(`a[dir="auto"][role="link"] > time`)) {
                     const _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
                     saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`));
@@ -175,7 +197,7 @@ TODO: 引リツがバグる
                     // let _tweet_link = article_element.querySelector(`div[dir="auto"] a[role="link"]:not(a[target="_blank"])`).href;
                     // saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`))
                 }
-            }).then(() =>{
+            }).then(() => {
                 article_element.querySelector(`.export-tweet`).style.display = "";
             })
         })
@@ -183,7 +205,10 @@ TODO: 引リツがバグる
 
 
     const target = document.body;
-    const config = {childList: true, subtree: true};
+    const config = {
+        childList: true,
+        subtree: true
+    };
     const observer = new MutationObserver(() => {
         //* ふぁぼとかの列（idが毎回変わるのでidで指定できないという悲しみ）
         const groups = document.querySelectorAll("div[role='group']");
