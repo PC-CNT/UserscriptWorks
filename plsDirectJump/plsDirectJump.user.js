@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.6.0
+// @version         0.6.1
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -72,13 +72,13 @@
         //! ここまでメモ
 
         const target = document.getElementById("content")
+        // const target = document.body;
         const config = {childList: true, subtree: true}
 
         const observer = new MutationObserver(() => {
             const content_text = document.querySelectorAll("#content-text");
             if ((content_text) && (content_text.length)) {
                 content_text.forEach(block => {
-                    // console.info(block);
                     block.querySelectorAll("a").forEach(function(value) {
                         const a_text = value.innerText;
                         if (isURL(a_text)) {
@@ -95,6 +95,14 @@
                     });
                 });
             }
+
+            document.querySelectorAll(`a`).forEach((ra) => {
+                if (ra.href.match(/https:\/\/www\.youtube\.com\/redirect\?.+/)) {
+                    // https://www.youtube.com/redirect?event=video_description&redir_token=rrrrr&q=https%3A%2F%2Fexample.com%2F&v=RgFaK6ZQifE
+                    ra.href = decodeURIComponent(ra.href.match(/&q=([^&]+)/)[1]);
+                    console.log(ra.href)
+                }
+            })
         });
         observer.observe(target, config);
     }
