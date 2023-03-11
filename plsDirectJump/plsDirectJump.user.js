@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.6.1
+// @version         0.6.2
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -22,14 +22,6 @@
     // console.log("===START UserscriptWorks/plsDirectJump===");
 
     const flag_debug = false;
-
-    function http_https(host) {
-        if (host.match("https")) {
-            return "https";
-        } else {
-            return "http";
-        }
-    }
 
     function fixPrefix(url) {
         if (url.match(/^https?:\/\//)) {
@@ -198,7 +190,7 @@
                     //* (https://example.wiki.fc2.com/jump/https/example.com%2exapmple)
                     const _fc2 = ["match:FC2 Wiki", "絶対ﾊﾟｽ：" + url_source_abs, "相対ﾊﾟｽ：" + url_source_rel];
                     if (url_source_rel.match(/^\/jump\/https?\/.*/)) {
-                        value.setAttribute("href", decodeURIComponent(url_source_rel.replace(/^\/jump\/https?\//, http_https(url_source_abs) + "://")));
+                        value.setAttribute("href", decodeURIComponent(url_source_rel.replace(/^\/jump\/(https?)\//, "$1://")));
                         value.setAttribute("target", "_blank");
                         value.setAttribute("rel", "noopener noreferrer");
                         _fc2.push("変更後ﾊﾟｽ：" + value.href);
