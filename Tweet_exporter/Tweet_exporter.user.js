@@ -31,8 +31,6 @@ TODO: if文地獄たすけて
 
 TODO: すごいバグるOGPの対応（aria-labelledby="id__\w+"）
 
-TODO: 本文の前後に改行を入れる ← 多分いけた
-
 TODO: 引リツがバグる
 
 TODO: フォーマット関連の修正
@@ -43,7 +41,7 @@ TODO: フォーマット関連の修正
     "use strict";
     console.log("===START UserscriptWorks/Tweet_exporter===");
 
-    const flag_debug = true;
+    const flag_debug = false;
 
     const DEBUG = (msglist) => {
         if (!flag_debug) {
