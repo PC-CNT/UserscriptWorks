@@ -60,8 +60,6 @@ TODO: フォーマット関連の修正
     //! html2canvasではなくtwitter側が悪かった（Content Security Policyなるものがdata:image…のURLを弾いていたせいで画像が取得できてなかったっぽい）
     const export_tweet = (article_element) => {
 
-        // console.log(article_element.querySelector(`.export-tweet`))
-
         article_element.querySelector(`.export-tweet`).style.display = "none";
 
         const zip = new JSZip();
