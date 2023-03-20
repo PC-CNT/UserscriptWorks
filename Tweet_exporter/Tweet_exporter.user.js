@@ -41,7 +41,7 @@ TODO: フォーマット関連の修正
     "use strict";
     console.log("===START UserscriptWorks/Tweet_exporter===");
 
-    const flag_debug = false;
+    const flag_debug = true;
 
     const DEBUG = (msglist) => {
         if (!flag_debug) {
