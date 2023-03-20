@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Search engine to KZ BRAIN Mobile
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1
+// @version         0.1.1
 // @author          PC-CNT
 // @license         MIT
 // @description     This script allows you to open the KZ BRAIN Mobile lightweight site directly from search engine results in a separate tab.
@@ -9,7 +9,7 @@
 // @downloadURL     https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js
 // @updateURL       https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @match           https://www.google.com/search?*
+// @match           *://*/*
 // @grant           none
 // ==/UserScript==
 
@@ -18,7 +18,7 @@
     const KZ_url = "http://servermobile.net/index.php?_kzm_u=";
 
 
-    if (location.href.match(/^https:\/\/www.google.com\/search\?.+/)) {
+    if (location.href.match(/^https:\/\/www\.google\..+\/search\?.+/)) {
         //* Google.com
 
         document.querySelector("#search").querySelectorAll(".g").forEach(function(block) {
