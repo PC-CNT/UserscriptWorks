@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name            back to GeoCities
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.4
+// @version         0.0.5
 // @description     Yahoo! ジオシティーズへのリンクをすべて魚拓（archive.org）のリンクに書き換えます
 // @author          PC-CNT
 // @license         MIT
 // @downloadURL     
 // @updateURL       
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @match           *://*
+// @match           *://*/*
 // @grant           none
 // ==/UserScript==
 
