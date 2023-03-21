@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.3
+// @version         0.1.4
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -19,7 +19,7 @@
 
 /*
 
-TODO: 挙動を同じにする
+TODO: 不具合多数（大体アプデのせい）
 
 TODO: 数が2重で取得されるのをなおす（div[data-testid="retweet"], div[data-testid="like"]の修正）
 
@@ -220,13 +220,14 @@ TODO: フォーマット関連の修正
                 (group.querySelector("div[role='dialog']")) ||
                 (group.querySelector(`div[data-testid="sheetDialog"]`)) ||
                 (group.querySelector(`div[data-testid="confirmationSheetDialog"]`)) ||
-                (group.querySelector(`select`))
+                (group.querySelector(`select`)) ||
+                (group.querySelector(`div[role="separator"]`))
             ) {
                 return;
             }
             //* 既に追加済みなら何もしない
             if (
-                5 <= group.childElementCount ||
+                6 <= group.childElementCount ||
                 group.classList.contains("tweet-exporter-added")
             ) {
                 return;
