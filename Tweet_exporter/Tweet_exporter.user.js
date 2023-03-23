@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.4
+// @version         0.1.5
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -227,7 +227,7 @@ TODO: フォーマット関連の修正
             }
             //* 既に追加済みなら何もしない
             if (
-                6 <= group.childElementCount ||
+                // 6 <= group.childElementCount ||
                 group.classList.contains("tweet-exporter-added")
             ) {
                 return;
