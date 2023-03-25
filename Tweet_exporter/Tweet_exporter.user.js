@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.7
+// @version         0.1.8
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -75,7 +75,7 @@ TODO: フォーマット関連の修正
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[data-testid="retweet"], div[data-testid="like"]`).forEach(content => {
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id]`).forEach(content => {
             //? article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id], video`).forEach(content => {
-            article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[aria-label][id], video`).forEach(content => {
+            article_element.querySelectorAll(`span:not(span[aria-hidden="true"]), time, a[dir="ltr"][target="_blank"][role="link"], img, div[aria-label][id], video`).forEach(content => {
                 DEBUG([`content`, content]);
 
                 //! ここから${_end}の分岐
@@ -96,9 +96,10 @@ TODO: フォーマット関連の修正
 
                 if (content.tagName === "A" && content.href.match(/^https?:\/\/t\.co\/\w+/)) {
                     //* ツイートに含まれるリンクは自動的にt.coの短縮リンクになるのでaタグから正規表現で絞る
-                    // _tweet_text += `${content.href}\n`;
+                    _tweet_text += `${content.href}\n`;
                     //* 非表示のテキストに元のリンクが書いてあるっぽい？
-                    _tweet_text += `${content.text.replace(/^(.+)…/, "$1")}\n`;
+                    //* とりあえず保留
+                    // _tweet_text += `${content.text.replace(/^(.+)…/, "$1")}\n`;
                 }
 
                 if (content.closest(`div[role="button"]`)) {
