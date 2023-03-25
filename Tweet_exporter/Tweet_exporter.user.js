@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.8
+// @version         0.1.9
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -96,10 +96,9 @@ TODO: フォーマット関連の修正
 
                 if (content.tagName === "A" && content.href.match(/^https?:\/\/t\.co\/\w+/)) {
                     //* ツイートに含まれるリンクは自動的にt.coの短縮リンクになるのでaタグから正規表現で絞る
-                    _tweet_text += `${content.href}\n`;
+                    // _tweet_text += `${content.href}\n`;
                     //* 非表示のテキストに元のリンクが書いてあるっぽい？
-                    //* とりあえず保留
-                    // _tweet_text += `${content.text.replace(/^(.+)…/, "$1")}\n`;
+                    _tweet_text += `${content.text.replace(/^(.+)…/, "$1")}\n`;
                 }
 
                 if (content.closest(`div[role="button"]`)) {
