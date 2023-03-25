@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.5
+// @version         0.1.7
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -221,7 +221,9 @@ TODO: フォーマット関連の修正
                 (group.querySelector(`div[data-testid="sheetDialog"]`)) ||
                 (group.querySelector(`div[data-testid="confirmationSheetDialog"]`)) ||
                 (group.querySelector(`select`)) ||
-                (group.querySelector(`div[role="separator"]`))
+                (group.querySelector(`div[role="separator"]`)) ||
+                (group.querySelector(`div[data-testid="Carousel-NavRight"]`)) ||
+                (group.querySelector(`div[data-testid="Carousel-NavLeft"]`))
             ) {
                 return;
             }
