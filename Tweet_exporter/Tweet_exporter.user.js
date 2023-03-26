@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.9
+// @version         0.1.10
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -80,7 +80,7 @@ TODO: フォーマット関連の修正
 
                 //! ここから${_end}の分岐
                 //* 1つの要素に属している場合 => 後ろに要素がある場合は改行をしない
-                if (content.nextSibling) {
+                if (content.nextElementSibling) {
                     _end = "";
                 } else if (content.closest("a") && content.closest("a").getAttribute("href").match(/^\/\w+\/status\/\d+\/(retweets|with_comments|likes)/)) {
                     //* リツイートやいいねの部分は改行をしない
