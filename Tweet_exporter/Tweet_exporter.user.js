@@ -1,14 +1,15 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.12
+// @version         0.1.13
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @match           https://*.twitter.com/*
+// @match           https://twitter.com/*
+// @match           https://mobile.twitter.com/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js
@@ -189,7 +190,8 @@ TODO: フォーマット関連の修正
                     const _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
                     saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}_${document.title}.zip`));
                 } else {
-                    saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}_${document.title}.zip`));
+                    saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}.zip`));
+                    // saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}_${document.title}.zip`));
                     // let _tweet_link = article_element.querySelector(`div[dir="auto"] a[role="link"]:not(a[target="_blank"])`).href;
                     // saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`))
                 }
