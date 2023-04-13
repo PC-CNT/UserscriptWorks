@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.13
+// @version         0.1.14
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -190,7 +190,7 @@ TODO: フォーマット関連の修正
                     const _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
                     saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}_${document.title}.zip`));
                 } else {
-                    saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}.zip`));
+                    saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}_${document.title}.zip`));
                     // saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}_${document.title}.zip`));
                     // let _tweet_link = article_element.querySelector(`div[dir="auto"] a[role="link"]:not(a[target="_blank"])`).href;
                     // saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`))
