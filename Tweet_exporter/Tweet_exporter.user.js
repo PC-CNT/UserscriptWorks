@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.14
+// @version         0.1.15
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -42,7 +42,7 @@ TODO: フォーマット関連の修正
     "use strict";
     console.log("===START UserscriptWorks/Tweet_exporter===");
 
-    const flag_debug = true;
+    const flag_debug = false;
 
     const DEBUG = (msglist) => {
         if (!flag_debug) {
@@ -182,6 +182,12 @@ TODO: フォーマット関連の修正
 
             DEBUG([`_tweet_text`, _tweet_text]);
             zip.file("tweet.txt", _tweet_text);
+
+            if (window.navigator.userAgent.match(/Windows NT/)) {
+                //* https://developer.mozilla.org/ja/docs/Web/API/Navigator/userAgent
+                zip.file(`${document.title.replaceAll(/(\\|\/|:|\*|\?|"|>|<|\|)/g, "-")}.url`, `[InternetShortcut]\nURL=${location.href}`);
+            }
+
             zip.generateAsync({
                 type: "blob",
                 compression: 'DEFLATE'
