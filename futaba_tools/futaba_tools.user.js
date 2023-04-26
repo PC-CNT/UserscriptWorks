@@ -1,18 +1,18 @@
 // ==UserScript==
 // @name            futaba_tools
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.1
+// @version         0.0.2
 // @description:ja  某掲示板用
 // @author          PC-CNT
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/futaba_tools/futaba_tools.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/futaba_tools/futaba_tools.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @match           *.2chan.net/*
+// @match           *://*.2chan.net/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js
-// @require         https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js
+// @require         https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/2.0.0/encoding.min.js
 // ==/UserScript==
@@ -20,11 +20,10 @@
 
 ( () => {
     `use strict`;
-    // console.log("てす");
 
     const download_button = document.createElement("button");
     download_button.innerText = "Download!";
-    download_button.classList.add("download_button");
+    download_button.classList.add("__t002");
     download_button.style.cssText = `
     position:fixed;
     bottom:10vh;
@@ -45,7 +44,7 @@
 
         all_html.querySelector(`meta[http-equiv="Content-Type"]`).setAttribute("content", "text/html; charset=utf-8");
 
-        all_html.querySelector(`button[class="download_button"]`).remove();
+        all_html.querySelector(`button[class="__t002"]`).remove();
 
         all_html.querySelector(`div > div[id="rightad"]`).parentNode.remove();
 
@@ -55,7 +54,7 @@
             iframe.remove();
         });
 
-        all_html.querySelector(`span[id="contres"]`).remove()
+        // all_html.querySelector(`span[id="contres"]`).remove()
 
         all_html.querySelectorAll(`a`).forEach(a => {
             if (a.getAttribute("href").match(/^\/bin\/jump\.php\?/)) {
