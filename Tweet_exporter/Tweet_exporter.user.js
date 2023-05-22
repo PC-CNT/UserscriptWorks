@@ -217,9 +217,12 @@ TODO: フォーマット関連の修正
         //* ふぁぼとかの列（idが毎回変わるのでidで指定できないという悲しみ）
         const groups = document.querySelectorAll("div[role='group']");
         groups.forEach(group => {
-            if (location.href.match(/^https?:\/\/twitter\.com\/.*\/status\/\d+\/photo\//)) {
+            if (!location.href.match(/^https?:\/\/(\w+\.)?twitter\.com\/.+\/status\/\d+/)) {
                 return;
             }
+            // if (location.href.match(/^https?:\/\/twitter\.com\/.*\/status\/\d+\/photo\//)) {
+            //     return;
+            // }
             //* 余計なdivを弾く（div[data-testid="sheetDialog"は非ログイン時に出てくるダイアログ、
             //* div[data-testid="confirmationSheetDialog"]はWelcome! Now you can Follow them.のやつ）
             //* selectは垢を作るときの生年月日選択
