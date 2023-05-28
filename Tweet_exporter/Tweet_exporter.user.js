@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.15
+// @version         0.2.0
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -211,18 +211,28 @@ TODO: フォーマット関連の修正
     const target = document.body;
     const config = {
         childList: true,
-        subtree: true
+        subtree: true,
+        attributes: false
     };
+
+    let _url;
+
     const observer = new MutationObserver(() => {
-        //* ふぁぼとかの列（idが毎回変わるのでidで指定できないという悲しみ）
-        const groups = document.querySelectorAll("div[role='group']");
-        groups.forEach(group => {
+        // *ロード終わるまで待つ
+        if (!document.querySelector(`article`)) {
+            return;
+        }
+        // *既に追加済みなら何もしない
+        if (_url === location.href) {
+            return;
+        }
+        // *ふぁぼとかの列（div[role='group'][id]で1つに絞れるっぽいけどまだ確証持てないから保留で）
+        const main_acticle_groups = document.querySelector(`article[tabindex="-1"]`).querySelectorAll("div[role='group']");
+        main_acticle_groups.forEach(group => {
+        // groups.forEach(group => {
             if (!location.href.match(/^https?:\/\/(\w+\.)?twitter\.com\/.+\/status\/\d+/)) {
                 return;
             }
-            // if (location.href.match(/^https?:\/\/twitter\.com\/.*\/status\/\d+\/photo\//)) {
-            //     return;
-            // }
             //* 余計なdivを弾く（div[data-testid="sheetDialog"は非ログイン時に出てくるダイアログ、
             //* div[data-testid="confirmationSheetDialog"]はWelcome! Now you can Follow them.のやつ）
             //* selectは垢を作るときの生年月日選択
@@ -238,14 +248,6 @@ TODO: フォーマット関連の修正
             ) {
                 return;
             }
-            //* 既に追加済みなら何もしない
-            if (
-                // 6 <= group.childElementCount ||
-                group.classList.contains("tweet-exporter-added")
-            ) {
-                return;
-            }
-            group.classList.add("tweet-exporter-added");
             const _sharemenu_div = group.lastElementChild;
             const _export_div = _sharemenu_div.cloneNode(true);
             _export_div.querySelector("svg").innerHTML = `<g transform="rotate(180, 12, 8.4)"><path d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z"></path></g><g><path d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z"></path></g>`;
@@ -256,6 +258,7 @@ TODO: フォーマット関連の修正
                 //* <article>
                 export_tweet(group.closest("article"));
             });
+            _url = location.href;
         });
     });
     observer.observe(target, config);
