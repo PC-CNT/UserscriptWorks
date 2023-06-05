@@ -1,15 +1,14 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.2.0
+// @version         0.2.2
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @match           https://twitter.com/*
-// @match           https://mobile.twitter.com/*
+// @match           *://*.twitter.com/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js
@@ -34,7 +33,7 @@ TODO: すごいバグるOGPの対応（aria-labelledby="id__\w+"）
 
 TODO: 引リツがバグる
 
-TODO: フォーマット関連の修正
+TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
 
 */
 
@@ -192,15 +191,10 @@ TODO: フォーマット関連の修正
                 type: "blob",
                 compression: 'DEFLATE'
             }).then(content => {
-                if (article_element.querySelector(`a[dir="auto"][role="link"] > time`)) {
-                    const _tweet_link = article_element.querySelector(`a[dir="auto"][role="link"] > time`).parentNode.href;
-                    saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}_${document.title}.zip`));
-                } else {
-                    saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}_${document.title}.zip`));
-                    // saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}_${document.title}.zip`));
-                    // let _tweet_link = article_element.querySelector(`div[dir="auto"] a[role="link"]:not(a[target="_blank"])`).href;
-                    // saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`))
-                }
+                saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}_${document.title}.zip`));
+                // saveAs(content, (`${location.pathname.split("/").pop()}_@${location.pathname.split("/")[1]}_${document.title}.zip`));
+                // let _tweet_link = article_element.querySelector(`div[dir="auto"] a[role="link"]:not(a[target="_blank"])`).href;
+                // saveAs(content, (`${_tweet_link.split("/").pop()}_@${_tweet_link.split("/")[3]}.zip`))
             }).then(() => {
                 article_element.querySelector(`.export-tweet`).style.display = "";
             })
@@ -218,6 +212,9 @@ TODO: フォーマット関連の修正
     let _url;
 
     const observer = new MutationObserver(() => {
+        if (!location.href.match(/^https?:\/\/(\w+\.)?twitter\.com\/.+\/status\/\d+/)) {
+            return;
+        }
         // *ロード終わるまで待つ
         if (!document.querySelector(`article`)) {
             return;
@@ -229,7 +226,6 @@ TODO: フォーマット関連の修正
         // *ふぁぼとかの列（div[role='group'][id]で1つに絞れるっぽいけどまだ確証持てないから保留で）
         const main_acticle_groups = document.querySelector(`article[tabindex="-1"]`).querySelectorAll("div[role='group']");
         main_acticle_groups.forEach(group => {
-        // groups.forEach(group => {
             if (!location.href.match(/^https?:\/\/(\w+\.)?twitter\.com\/.+\/status\/\d+/)) {
                 return;
             }
