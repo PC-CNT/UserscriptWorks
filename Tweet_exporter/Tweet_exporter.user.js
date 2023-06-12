@@ -8,7 +8,8 @@
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
-// @match           *://*.twitter.com/*
+// @match           *://twitter.com/*
+// @match           *://mobile.twitter.com/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js
@@ -226,7 +227,7 @@ TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
         // *ふぁぼとかの列（div[role='group'][id]で1つに絞れるっぽいけどまだ確証持てないから保留で）
         const main_acticle_groups = document.querySelector(`article[tabindex="-1"]`).querySelectorAll("div[role='group']");
         main_acticle_groups.forEach(group => {
-            if (!location.href.match(/^https?:\/\/(\w+\.)?twitter\.com\/.+\/status\/\d+/)) {
+            if (!location.href.match(/^https?:\/\/(\w+\.)?twitter\.com\/.+\/status\/\d+\/?$/)) {
                 return;
             }
             //* 余計なdivを弾く（div[data-testid="sheetDialog"は非ログイン時に出てくるダイアログ、
