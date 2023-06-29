@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.7
+// @version         0.7.3
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -100,29 +100,6 @@
         observer.observe(target, config);
     }
 
-    const atsumaru = () => {
-        //* ゲームアツマール
-        //* (https://game.nicovideo.jp/atsumaru/jump?link_in=gamepage&url=https%3A%2F%2Fexample.com%2F)
-        //! いつもの書き方だと動的にhrefを変更されているため正常に動作しない（たぶんReact） なのでa要素ごと置換して対応する
-        // const target = document.querySelector(`div[class="GameDetail__GameDetail__LeftColumn"]`)
-        const target = document.querySelector(`body`)
-        const config = {childList: true, subtree: true}
-
-        const observer = new MutationObserver(() => {
-            const al = document.querySelectorAll(`a`);
-            al.forEach((value) => {
-                if (value.href.match(/^https:\/\/game\.nicovideo.jp\/atsumaru\/jump\?(link_in=gamepage&)?url=/)) {
-                    const _clone = value.cloneNode(true);
-                    _clone.setAttribute("href", decodeURIComponent(value.href.replace(/^https:\/\/game\.nicovideo.jp\/atsumaru\/jump\?(link_in=gamepage&)?url=/, "")));
-                    value.parentNode.replaceChild(_clone, value);
-                }
-            });
-            // observer.disconnect();
-        });
-
-        observer.observe(target, config);
-    }
-
     const futaba = () => {
         //* ふたば☆ちゃんねる
         //* (https://www.2chan.net/bin/jump.php?https://example.com)
@@ -194,8 +171,6 @@
         youtube();
     } else if (location.host.match(/^okwave\.jp/)) {
         okwave();
-    } else if (location.host.match(/^game\.nicovideo\.jp/)) {
-        atsumaru();
     } else if (location.host.match(/^.+\.2chan\.net/)) {
         futaba();
     } else {
