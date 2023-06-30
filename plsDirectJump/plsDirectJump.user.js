@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.7.3
+// @version         0.7.8
 // @description     This is a script (planned) to remove cushion pages such as 2ch.net and FC2 Wiki from <a href> so that you can jump directly to them.
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
@@ -125,12 +125,16 @@
             const url_source_rel = value.getAttribute("href")
             //TODO: hrefの編集
             if (url_source_abs) {
-                if (url_source_abs.match(/^https?:\/\/jump.(2|5)ch\.net\/\?.*/)) {
+                if (url_source_abs.match(/^https?:\/\/jump.(2|5)ch\.net\/\?.+/)) {
                     //* 2ちゃんねる
                     //* (https://jump.5ch.net/?http://example.com/, jump.2ch.net/?,)
                     value.setAttribute("href", fixPrefix(url_source_abs.replace(/^https?:\/\/jump.(2|5)ch\.net\/\?/, "")));
                 }
-                // if (url_source_abs.match(/^https?:\/\/.+\.wiki\.fc2\.com\/jump\//)) {
+                if (url_source_abs.match(/^https?:\/\/www\.pinktower\.com\/\?.+/)) {
+                    //* PINKちゃんねる
+                    //* (https://www.pinktower.com/?https://example.com/)
+                    value.setAttribute("href", fixPrefix(url_source_abs.replace(/^https?:\/\/www\.pinktower\.com\/\?/, "")));
+                }
                 if (location.hostname.match(/^.+\.wiki\.fc2\.com/)) {
                     //* FC2 Wiki
                     //* (https://example.wiki.fc2.com/jump/https/example.com%2exapmple)
