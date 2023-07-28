@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.2.2
+// @version         0.2.5
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -40,7 +40,6 @@ TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
 
 (() => {
     "use strict";
-    console.log("===START UserscriptWorks/Tweet_exporter===");
 
     const flag_debug = false;
 
@@ -153,7 +152,7 @@ TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
                     //* urlの末尾に&name=origをつけると元のサイズの画像を取得できる
                     DEBUG([`${content.tagName}`, `${content.getAttribute("src").split("&")[0] + "&name=orig"}`]);
                     _tweet_text += (`${content.getAttribute("src").split("&")[0] + "&name=orig"}\n`);
-                    zip.file(`${content.closest("a").getAttribute("href").split("/").pop()}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {
+                    zip.file(`${content.closest("a").getAttribute("href").split("/").pop().padStart(2, "0")}.jpg`, JSZipUtils.getBinaryContent(content.getAttribute("src").split("&")[0] + "&name=orig"), {
                         binary: true
                     });
                 }
@@ -259,6 +258,4 @@ TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
         });
     });
     observer.observe(target, config);
-
-    console.log("===END UserscriptWorks/Tweet_exporter===");
 })();
