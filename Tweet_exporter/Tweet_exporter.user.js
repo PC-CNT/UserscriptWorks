@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.2.5
+// @version         0.2.8
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
@@ -114,6 +114,11 @@ TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
 
                 if (content.tagName === "SPAN" && content.tagName === content.parentNode.tagName) {
                     //* querySelectorAllから(span:not(span span))を消した代わりにここで重複を除外
+                    return;
+                }
+
+                if (content.closest(`a`) && content.closest(`a`).getAttribute("href").match(/^\/.+\/history$/) && content.hasAttribute("id")) {
+                    //* /history/に関する余計な文字列を除外~~の予定~~
                     return;
                 }
 
