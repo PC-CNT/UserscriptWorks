@@ -8,7 +8,7 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/GitHub_show_all_Assets/GitHub_show_all_Assets.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/GitHub_show_all_Assets/GitHub_show_all_Assets.user.js
-// @match           https://github.com/*/*/releases*
+// @match           *://github.com/*/*/releases*
 // ==/UserScript==
 
 

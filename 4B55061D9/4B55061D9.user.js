@@ -7,7 +7,7 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/4B55061D9/4B55061D9.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/4B55061D9/4B55061D9.user.js
-// @match           https://viewer.impress.co.jp/*
+// @match           *://viewer.impress.co.jp/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js
