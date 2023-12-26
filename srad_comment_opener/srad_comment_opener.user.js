@@ -8,7 +8,6 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/srad_comment_opener/srad_comment_opener.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/srad_comment_opener/srad_comment_opener.user.js
-// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           https://*.srad.jp/*
 // ==/UserScript==
 

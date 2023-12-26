@@ -8,7 +8,6 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Reddit_more_replies/Reddit_more_replies.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Reddit_more_replies/Reddit_more_replies.user.js
-// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           https://www.reddit.com/r/*/comments/*
 // ==/UserScript==
 

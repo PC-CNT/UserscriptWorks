@@ -7,7 +7,6 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/itch.io_downloader/itch.io_downloader.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/itch.io_downloader/itch.io_downloader.user.js
-// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           *://*.itch.io/*
 // @grant           GM_registerMenuCommand
 // ==/UserScript==

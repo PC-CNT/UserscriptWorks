@@ -7,7 +7,6 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/3559027CF/3559027CF.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/3559027CF/3559027CF.user.js
-// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           https://web-ace.jp/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js

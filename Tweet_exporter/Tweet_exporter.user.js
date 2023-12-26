@@ -7,7 +7,6 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
-// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           *://twitter.com/*
 // @match           *://mobile.twitter.com/*
 // @grant           none

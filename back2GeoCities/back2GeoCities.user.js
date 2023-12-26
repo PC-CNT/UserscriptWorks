@@ -7,7 +7,6 @@
 // @license         MIT
 // @downloadURL     
 // @updateURL       
-// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           *://*/*
 // @grant           none
 // ==/UserScript==

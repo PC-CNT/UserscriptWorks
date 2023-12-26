@@ -8,7 +8,6 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/plsDirectJump/plsDirectJump.user.js
-// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           *://*/*
 // @match           *://www.youtube.com/watch?v=*
 // @match           *://steamcommunity.com/*

@@ -8,7 +8,6 @@
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/anond_trackback_opener/anond_trackback_opener.user.js
 // @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/anond_trackback_opener/anond_trackback_opener.user.js
-// @supportURL      https://github.com/PC-CNT/UserscriptWorks/issues
 // @match           *://anond.hatelabo.jp/*
 // ==/UserScript==
 
