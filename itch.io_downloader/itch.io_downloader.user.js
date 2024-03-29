@@ -5,7 +5,6 @@
 // @description:ja  itch.ioのページ上にあるDownloadボタンを自動でクリックするだけ
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/itch.io_downloader/itch.io_downloader.user.js
 // @match           *://*.itch.io/*
 // @grant           GM_registerMenuCommand
 // ==/UserScript==

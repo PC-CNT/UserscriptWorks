@@ -6,7 +6,6 @@
 // @description     増田のトラバをすべて展開するだけ
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/anond_trackback_opener/anond_trackback_opener.user.js
 // @match           *://anond.hatelabo.jp/*
 // ==/UserScript==
 

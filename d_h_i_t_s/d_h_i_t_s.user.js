@@ -2,9 +2,9 @@
 // @name            d/ヒ/ッ/ツ/のやつ
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
 // @version         2024-03-30-0141
+// @description     
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://github.com/PC-CNT/UserscriptWorks/raw/main/d_h_i_t_s/d_h_i_t_s.user.js
 // @match           *://dhits.docomo.ne.jp/*
 // @icon            http://www.google.com/s2/favicons?domain=https://dhits.docomo.ne.jp&sz=128
 // ==/UserScript==

@@ -5,7 +5,6 @@
 // @description:ja  てきとう
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/4B55061D9/4B55061D9.user.js
 // @match           *://viewer.impress.co.jp/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js

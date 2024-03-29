@@ -6,7 +6,6 @@
 // @description     "Show all xx assets"と最新以降のAssetsを自動で開くようにする
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/GitHub_show_all_Assets/GitHub_show_all_Assets.user.js
 // @match           *://github.com/*/*/releases*
 // ==/UserScript==
 

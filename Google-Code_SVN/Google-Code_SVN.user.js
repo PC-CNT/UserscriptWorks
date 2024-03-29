@@ -5,7 +5,6 @@
 // @description:ja  Google Code Archiveでrepo.svndump.gzをダウンロードするボタンを追加する
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Google-Code_SVN/Google-Code_SVN.user.js
 // @match           *://code.google.com/*
 // @grant           none
 // ==/UserScript==

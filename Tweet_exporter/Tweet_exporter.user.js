@@ -5,7 +5,6 @@
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Tweet_exporter/Tweet_exporter.user.js
 // @match           *://twitter.com/*
 // @match           *://mobile.twitter.com/*
 // @grant           none

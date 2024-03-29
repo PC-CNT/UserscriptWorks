@@ -5,7 +5,6 @@
 // @description:ja  価格.comの商品名を全部コピーします。改行を含めたくなかったら20行目の + "\n" を削除してください。
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/kakaku_websc/kakaku_websc.user.js
 // @match           *://kakaku.com/*/itemlist.aspx*
 // @grant           none
 // ==/UserScript==
