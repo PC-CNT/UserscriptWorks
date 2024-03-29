@@ -6,7 +6,7 @@
 // @author          PC-CNT
 // @license         MIT
 // @match           *://migswitch.com/*
-// @icon            
+// @icon            http://www.google.com/s2/favicons?domain=https://migswitch.com/&sz=128
 // ==/UserScript==
 
 window.addEventListener('load', () => {
