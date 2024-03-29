@@ -5,8 +5,6 @@
 // @description     Yahoo! ジオシティーズへのリンクをすべて魚拓（archive.org）のリンクに書き換えます
 // @author          PC-CNT
 // @license         MIT
-// @downloadURL     
-// @updateURL       
 // @match           *://*/*
 // @grant           none
 // ==/UserScript==

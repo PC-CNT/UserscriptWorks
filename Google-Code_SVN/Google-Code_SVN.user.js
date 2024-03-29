@@ -6,7 +6,6 @@
 // @author          PC-CNT
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Google-Code_SVN/Google-Code_SVN.user.js
-// @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/Google-Code_SVN/Google-Code_SVN.user.js
 // @match           *://code.google.com/*
 // @grant           none
 // ==/UserScript==

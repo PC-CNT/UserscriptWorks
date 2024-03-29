@@ -4,10 +4,8 @@
 // @version         0.1.1
 // @author          PC-CNT
 // @license         MIT
-// @description     This script allows you to open the KZ BRAIN Mobile lightweight site directly from search engine results in a separate tab.
 // @description:ja  検索エンジンの結果からKZ BRAIN Mobileの軽量サイトを別タブで直接開くようにするスクリプトです。
 // @downloadURL     https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js
-// @updateURL       https://github.com/PC-CNT/UserscriptWorks/raw/main/searchengine2KZ_BRAIN_Mobile/searchengine2KZ_BRAIN_Mobile.user.js
 // @match           *://*/*
 // @grant           none
 // ==/UserScript==

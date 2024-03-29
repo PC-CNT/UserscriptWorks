@@ -6,7 +6,6 @@
 // @author          PC-CNT
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/kakaku_websc/kakaku_websc.user.js
-// @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/kakaku_websc/kakaku_websc.user.js
 // @match           *://kakaku.com/*/itemlist.aspx*
 // @grant           none
 // ==/UserScript==

@@ -5,7 +5,6 @@
 // @author          PC-CNT
 // @license         MIT
 // @downloadURL     https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/fix_acg.tv_link/fix_acg.tv_link.user.js
-// @updateURL       https://raw.githubusercontent.com/PC-CNT/UserscriptWorks/main/fix_acg.tv_link/fix_acg.tv_link.user.js
 // @match           *://*.bilibili.com/*
 // @grant           none
 // ==/UserScript==
