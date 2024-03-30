@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Search engine to KZ BRAIN Mobile
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.1
+// @version         2021.11.06.0008
 // @author          PC-CNT
 // @license         MIT
 // @description:ja  検索エンジンの結果からKZ BRAIN Mobileの軽量サイトを別タブで直接開くようにするスクリプトです。

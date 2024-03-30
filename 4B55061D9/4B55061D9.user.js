@@ -1,12 +1,11 @@
 // ==UserScript==
 // @name            積読
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1.3
+// @version         2022.03.11.2053
 // @description:ja  てきとう
 // @author          PC-CNT
 // @license         MIT
 // @match           *://viewer.impress.co.jp/*
-// @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js

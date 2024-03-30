@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            GitHub show all Assets
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         1.0
+// @version         2022.11.01.0452
 // @icon            https://github.com/fluidicon.png
 // @description     "Show all xx assets"と最新以降のAssetsを自動で開くようにする
 // @author          PC-CNT

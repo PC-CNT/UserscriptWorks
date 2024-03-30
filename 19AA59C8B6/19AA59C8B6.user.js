@@ -1,12 +1,11 @@
 // ==UserScript==
 // @name            19AA59C8B6
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.1
+// @version         2023.04.28.0846
 // @description:ja  ＪＰＯためし読みサービス「tameshiyo.me」の画像ダウンローダー（仮）
 // @author          PC-CNT
 // @license         MIT
 // @match           *://*.tameshiyo.me/*
-// @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js
 // ==/UserScript==

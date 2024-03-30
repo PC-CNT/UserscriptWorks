@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            I agree Migswitch.com
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024-03-29
+// @version         2024.03.29.1755
 // @description     
 // @author          PC-CNT
 // @license         MIT

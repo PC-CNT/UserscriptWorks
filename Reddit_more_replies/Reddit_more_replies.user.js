@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Reddit - リプ全表示
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         1.0
+// @version         2023.01.31.0219
 // @icon            http://www.google.com/s2/favicons?domain=reddit.com&sz=128
 // @description     Redditの more replies を自動で押すだけ
 // @author          PC-CNT

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Rentry.co export to download
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2023-12-27
+// @version         2023.12.27.1945
 // @description     rentry.co（or rentry.co）の各exportボタンで直接ファイルを落とせるようにするだけ
 // @author          PC-CNT
 // @license         MIT

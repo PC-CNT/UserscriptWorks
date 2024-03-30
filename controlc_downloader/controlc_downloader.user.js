@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name            controlc.com Downloader
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024-01-29
-// @description     
+// @version         2024.01.29.08.07
+// @description     controlc.comのテキストをtxtで落とすだけ
 // @author          PC-CNT
 // @license         MIT
 // @match           *://controlc.com/*

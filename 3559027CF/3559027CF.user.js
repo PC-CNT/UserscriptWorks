@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            いつものろーだー03
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         0.0.1
+// @version         2022.08.27.2351
 // @description:ja  てきとう
 // @author          PC-CNT
 // @license         MIT
@@ -15,25 +15,28 @@
 
 /*
 （スクロール処理どうしよう……）
-*/ 
+*/
 
 
 (function() {
     "use strict";
 
-
     const zip = new JSZip();
-
 
     const save_zip = () => {
         const images = document.querySelectorAll(`img[class="lazy viewerFixedImage"]`)
         images.forEach((image, index) => {
-            zip.file(`${(index+1).toString().padStart(3, "0")}.jpg`, JSZipUtils.getBinaryContent(image.src, {binary: true}));
+            zip.file(`${(index+1).toString().padStart(3, "0")}.jpg`, JSZipUtils.getBinaryContent(image.src, {
+                binary: true
+            }));
         });
 
         console.log(images.length);
 
-        zip.generateAsync({type: "blob", compression: "DEFLATE"}).then( (content) => {
+        zip.generateAsync({
+            type: "blob",
+            compression: "DEFLATE"
+        }).then((content) => {
             saveAs(content, `${document.title.match(/^(.+)｜.+/)[1]}.zip`);
         });
     }
@@ -48,7 +51,11 @@
 
 
     const target = document.body;
-    const config = {childList: true, subtree: true, attributes: true};
+    const config = {
+        childList: true,
+        subtree: true,
+        attributes: true
+    };
     const observer = new MutationObserver(() => {
         if (document.querySelector(`.lazy-container`)) {
             observer.disconnect();

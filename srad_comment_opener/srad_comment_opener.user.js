@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            スラド - 米欄自動展開
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         1.0
+// @version         2022.12.22.0753
 // @icon            http://www.google.com/s2/favicons?domain=srad.jp&sz=128
 // @description     スラドのコメント欄をすべて展開するだけ
 // @author          PC-CNT

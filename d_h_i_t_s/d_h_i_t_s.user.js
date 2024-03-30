@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name            d/ヒ/ッ/ツ/のやつ
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024-03-30-0141
-// @description     
+// @version         2024.03.30.0141
+// @description     m4a
 // @author          PC-CNT
 // @license         MIT
 // @match           *://dhits.docomo.ne.jp/*

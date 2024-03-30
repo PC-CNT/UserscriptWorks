@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Google-Code_SVN
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2023.08.17
+// @version         2023.08.19.0023
 // @description:ja  Google Code Archiveでrepo.svndump.gzをダウンロードするボタンを追加する
 // @author          PC-CNT
 // @license         MIT

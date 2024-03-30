@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            itch.io downloader
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2023.09.25
+// @version         2023.09.25.0420
 // @description:ja  itch.ioのページ上にあるDownloadボタンを自動でクリックするだけ
 // @author          PC-CNT
 // @license         MIT

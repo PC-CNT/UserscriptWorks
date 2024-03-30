@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            togetter - レス表示
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024-01-14
+// @version         2024.01.14.0819
 // @description     togetterの米欄でレスをマウスオーバーで表示するだけ
 // @author          PC-CNT
 // @license         MIT
