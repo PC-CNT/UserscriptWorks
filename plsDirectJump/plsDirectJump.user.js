@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2021.11.16.1229
+// @version         2024.04.10.2317
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
@@ -12,7 +12,7 @@
 // ==/UserScript==
 
 
-( () => {
+(() => {
     "use strict";
 
     function fixPrefix(url) {
@@ -45,7 +45,10 @@
 
         const target = document.getElementById("content")
         // const target = document.body;
-        const config = {childList: true, subtree: true}
+        const config = {
+            childList: true,
+            subtree: true
+        }
 
         const observer = new MutationObserver(() => {
             const content_text = document.querySelectorAll("#content-text");
@@ -54,12 +57,10 @@
                     block.querySelectorAll("a").forEach(function(value) {
                         const a_text = value.innerText;
                         if (isURL(a_text)) {
-                            // console.info("value:", value);
                             value.classList.remove("yt-simple-endpoint");
                             value.style.textDecoration = "none";
                             value.setAttribute("href", a_text);
                             value.setAttribute("target", "_blank");
-                            value.setAttribute("rel", "noopener noreferrer");
                         }
                     });
                 });
@@ -69,7 +70,6 @@
                 if (ra.href.match(/https:\/\/www\.youtube\.com\/redirect\?.+/)) {
                     // https://www.youtube.com/redirect?event=video_description&redir_token=rrrrr&q=https%3A%2F%2Fexample.com%2F&v=RgFaK6ZQifE
                     ra.href = decodeURIComponent(ra.href.match(/&q=([^&]+)/)[1]);
-                    // console.log(ra.href)
                 }
             })
         });
@@ -78,7 +78,10 @@
 
     const okwave = () => {
         const target = document.querySelector(`body`)
-        const config = {childList: true, subtree: true}
+        const config = {
+            childList: true,
+            subtree: true
+        }
 
         const observer = new MutationObserver(() => {
             const al = document.querySelectorAll(`a`);
@@ -100,14 +103,16 @@
         //* ふたば☆ちゃんねる
         //* (https://www.2chan.net/bin/jump.php?https://example.com)
         const target = document.querySelector(`html`)
-        const config = {childList: true, subtree: true}
+        const config = {
+            childList: true,
+            subtree: true
+        }
 
         const observer = new MutationObserver(() => {
             const al = document.querySelectorAll(`a`);
             al.forEach((value) => {
                 if (value.href.match(/^https?:\/\/.+\.2chan\.net\/bin\/jump\.php\?/)) {
                     value.setAttribute("href", decodeURIComponent(value.href.replace(/^https?:\/\/.+\.2chan\.net\/bin\/jump\.php\?/, "")));
-                    value.setAttribute("rel", "noopener noreferrer");
                 }
             });
         });
@@ -137,7 +142,6 @@
                     if (url_source_rel.match(/^\/jump\/https?\/.*/)) {
                         value.setAttribute("href", decodeURIComponent(url_source_rel.replace(/^\/jump\/(https?)\//, "$1://")));
                         value.setAttribute("target", "_blank");
-                        value.setAttribute("rel", "noopener noreferrer");
                     }
                 }
                 if (url_source_abs.match(/^https?:\/\/kakaku\.com\/jump\/\?url=.*/)) {
@@ -155,13 +159,17 @@
                     //* (https://re.wikiwiki.jp/?http://example.com/)
                     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https:\/\/re\.wikiwiki\.jp\/\?/, "")));
                     value.setAttribute("target", "_blank");
-                    value.setAttribute("rel", "noopener noreferrer");
                 }
                 if (url_source_abs.match(/^https?:\/\/link\.zhihu\.com\/\?target=.+/)) {
                     // * 知乎
                     // * (https://link.zhihu.com/?target=https%3A//example.com/)
                     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/link\.zhihu\.com\/\?target=/, "")));
                     value.setAttribute("target", "_blank");
+                }
+                if (url_source_abs.match(/^https?:\/\/piapro\.jp\/jump\//)) {
+                    // * piapro
+                    // * https://piapro.jp/jump/?url=https%3A%2F%2Fexample.com
+                    value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/piapro\.jp\/jump\/\?url=/, "")));
                 }
             }
         });
