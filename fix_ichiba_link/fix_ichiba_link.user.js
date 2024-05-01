@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            fix_ichiba_link
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024.05.01.0020
+// @version         2024.05.01.1400
 // @description     ニコ百に残ってるニコニコ市場のリンクを修正するやつ
 // @author          PC-CNT
 // @license         MIT
@@ -14,7 +14,7 @@
 
     const observer = new MutationObserver(() => {
         observer.disconnect()
-        const regex_amazon = /^https?:\/\/ext\.ichiba\.nicovideo\.jp\/thumb\/az([0-9]{10})/
+        const regex_amazon = /^https?:\/\/ext\.ichiba\.nicovideo\.jp\/thumb\/az([0-9a-zA-Z]{10})/
         document.querySelectorAll("iframe[data-src]").forEach(iframe => {
             if (iframe.getAttribute("data-src").match(regex_amazon)) {
                 let url = `https://amazon.jp/dp/${iframe.getAttribute("data-src").match(regex_amazon)[1]}`
