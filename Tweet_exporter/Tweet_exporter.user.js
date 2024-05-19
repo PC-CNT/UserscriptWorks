@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name            Tweet_exporter
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2022.02.14.1138
+// @version         2024.05.20.0501
 // @description:ja  任意のツイートを文章と画像ごとzipにまとめてダウンロードする！
 // @author          PC-CNT
 // @license         MIT
 // @match           *://twitter.com/*
 // @match           *://mobile.twitter.com/*
+// @match           *://x.com/*
 // @grant           none
 // @require         https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js
 // @require         https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js
@@ -66,7 +67,7 @@ TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
             let current_group = null;
             let _end = "\n";
             let flag_multi_div = false;
-            const is_url_single = (/^https?:\/\/twitter.com\/\w+\/status\/\d+/).test(location.href);
+            const is_url_single = (/^https?:\/\/(twitter|x)\.com\/\w+\/status\/\d+/).test(location.href);
             //* span:not(span span)にすることで"<span><span>テキスト</span></span>"のような場合にテキストが二重で出力されるのを防ぐ
             //! aria-hidden="true"が付いているspanはリンク（t.co）の代替テキストなので除外する ~~下のif文でクラスを使用して重複を避けたのでいらない~~ やっぱいる
             //? article_element.querySelectorAll(`span:not(span span, span[aria-hidden="true"]), time, a[dir="ltr"][rel="noopener noreferrer"][target="_blank"][role="link"], img, div[data-testid="retweet"], div[data-testid="like"]`).forEach(content => {
@@ -215,7 +216,7 @@ TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
     let _url;
 
     const observer = new MutationObserver(() => {
-        if (!location.href.match(/^https?:\/\/(\w+\.)?twitter\.com\/.+\/status\/\d+/)) {
+        if (!location.href.match(/^https?:\/\/(\w+\.)?(twitter|x)\.com\/.+\/status\/\d+/)) {
             return;
         }
         // *ロード終わるまで待つ
@@ -229,7 +230,7 @@ TODO: ツイートURL->ツイート以外のURL->Alt+左で機能してない
         // *ふぁぼとかの列（div[role='group'][id]で1つに絞れるっぽいけどまだ確証持てないから保留で）
         const main_acticle_groups = document.querySelector(`article[tabindex="-1"]`).querySelectorAll("div[role='group']");
         main_acticle_groups.forEach(group => {
-            if (!location.href.match(/^https?:\/\/(\w+\.)?twitter\.com\/.+\/status\/\d+\/?$/)) {
+            if (!location.href.match(/^https?:\/\/(\w+\.)?(twitter|x)\.com\/.+\/status\/\d+\/?$/)) {
                 return;
             }
             //* 余計なdivを弾く（div[data-testid="sheetDialog"は非ログイン時に出てくるダイアログ、
