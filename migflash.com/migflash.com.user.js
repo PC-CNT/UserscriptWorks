@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name            I agree Migswitch.com
+// @name            I agree Migflash.com
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
 // @version         2024.03.29.1755
 // @description     
 // @author          PC-CNT
 // @license         MIT
-// @match           *://migswitch.com/*
-// @icon            http://www.google.com/s2/favicons?domain=https://migswitch.com/&sz=128
+// @match           *://migflash.com/*
+// @icon            http://www.google.com/s2/favicons?domain=https://migflash.com/&sz=128
 // ==/UserScript==
 
 window.addEventListener('load', () => {
