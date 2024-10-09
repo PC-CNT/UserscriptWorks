@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024.08.26.0621
+// @version         2024.10.10.0643
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
@@ -120,6 +120,27 @@
         observer.observe(target, config);
     }
 
+    function pixiv() {
+        // * Pixiv
+        // * https://www.pixiv.net/jump.php?url=https%3A%2F%2Fexample.com
+        const target = document.querySelector(`body`)
+        const config = {
+            childList: true,
+            subtree: true
+        }
+
+        const observer = new MutationObserver(() => {
+            const al = document.querySelectorAll(`a`);
+            al.forEach((value) => {
+                if (value.href.match(/^https?:\/\/www\.pixiv\.net\/jump\.php\?.+/)) {
+                    value.setAttribute("href", decodeURIComponent(value.href.replace(/^https?:\/\/www\.pixiv\.net\/jump\.php\?/, "")));
+                }
+            });
+        });
+
+        observer.observe(target, config);
+    }
+
 
     function others() {
         document.querySelectorAll("a").forEach(function(value) {
@@ -172,11 +193,11 @@
                     // * https://piapro.jp/jump/?url=https%3A%2F%2Fexample.com
                     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/piapro\.jp\/jump\/\?url=/, "")));
                 }
-                if (url_source_abs.match(/^https?:\/\/www\.pixiv\.net\/jump\.php\?url=.+/)) {
-                    // * Pixiv
-                    // * https://www.pixiv.net/jump.php?url=https%3A%2F%2Fexample.com
-                    value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/www\.pixiv\.net\/jump\.php\?url=/, "")))
-                }
+                // if (url_source_abs.match(/^https?:\/\/www\.pixiv\.net\/jump\.php\?url=.+/)) {
+                //     // * Pixiv
+                //     // * https://www.pixiv.net/jump.php?url=https%3A%2F%2Fexample.com
+                //     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/www\.pixiv\.net\/jump\.php\?url=/, "")))
+                // }
             }
         });
     }
@@ -189,6 +210,8 @@
         okwave();
     } else if (location.host.match(/^.+\.2chan\.net/)) {
         futaba();
+    } else if (location.host.match(/^www\.pixiv\.net/)) {
+        pixiv();
     } else {
         others();
     }
