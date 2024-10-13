@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024.10.14.0142
+// @version         2024.10.14.0302
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
@@ -141,6 +141,28 @@
         observer.observe(target, config);
     }
 
+    function commons_nico() {
+        // * ニコニ・コモンズ
+        // * https://commons.nicovideo.jp/gw?url=https%3A%2F%2Fexample.com
+        const target = document.querySelector(`body`)
+        const config = {
+            childList: true,
+            subtree: true
+        }
+
+        const observer = new MutationObserver(() => {
+            const al = document.querySelectorAll(`a`);
+            al.forEach((a) => {
+                if (a.href.match(/^https:\/\/commons\.nicovideo\.jp\/gw\?url=/)) {
+                    // *innerTextでいいかも
+                    a.setAttribute("href", decodeURIComponent(a.href.match(/^https:\/\/commons\.nicovideo\.jp\/gw\?url=(.+)&ref=.+/)[1]));
+                }
+            });
+        });
+
+        observer.observe(target, config);
+    }
+
 
     function others() {
         document.querySelectorAll("a").forEach(function(value) {
@@ -206,14 +228,19 @@
         return;
         //* また仕様変更きた？？？
         // youtube();
-    } else if (location.host.match(/^okwave\.jp/)) {
-        okwave();
-    } else if (location.host.match(/^.+\.2chan\.net/)) {
-        futaba();
-    } else if (location.host.match(/^www\.pixiv\.net/)) {
-        pixiv();
-    } else {
-        others();
     }
+    if (location.host.match(/^okwave\.jp/)) {
+        okwave();
+    }
+    if (location.host.match(/^.+\.2chan\.net/)) {
+        futaba();
+    }
+    if (location.host.match(/^www\.pixiv\.net/)) {
+        pixiv();
+    }
+    if (location.host.match(/^commons\.nicovideo\.jp/)) {
+        commons_nico()
+    }
+    others();
 
 })();
