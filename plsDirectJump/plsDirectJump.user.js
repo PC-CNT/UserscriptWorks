@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024.10.10.0643
+// @version         2024.10.14.0142
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
@@ -193,11 +193,11 @@
                     // * https://piapro.jp/jump/?url=https%3A%2F%2Fexample.com
                     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/piapro\.jp\/jump\/\?url=/, "")));
                 }
-                // if (url_source_abs.match(/^https?:\/\/www\.pixiv\.net\/jump\.php\?url=.+/)) {
-                //     // * Pixiv
-                //     // * https://www.pixiv.net/jump.php?url=https%3A%2F%2Fexample.com
-                //     value.setAttribute("href", decodeURIComponent(url_source_abs.replace(/^https?:\/\/www\.pixiv\.net\/jump\.php\?url=/, "")))
-                // }
+                if (url_source_abs.match(/^https:\/\/dova-s\.jp\/_contents\/author\/jump\.html\?num=[0-9]+/)) {
+                    // * DOVA-SYNDROME
+                    // * https://dova-s.jp/_contents/author/jump.html?num=089
+                    value.setAttribute("href", value.innerText);
+                }
             }
         });
     }
