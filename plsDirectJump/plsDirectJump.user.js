@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024.10.14.0302
+// @version         2025.01.01.0229
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
@@ -132,8 +132,8 @@
         const observer = new MutationObserver(() => {
             const al = document.querySelectorAll(`a`);
             al.forEach((value) => {
-                if (value.href.match(/^https?:\/\/www\.pixiv\.net\/jump\.php\?.+/)) {
-                    value.setAttribute("href", decodeURIComponent(value.href.replace(/^https?:\/\/www\.pixiv\.net\/jump\.php\?/, "")));
+                if (value.href.match(/^https?:\/\/www\.pixiv\.net\/jump\.php\?url=.+/)) {
+                    value.href = decodeURIComponent(value.href.match(/https?:\/\/www\.pixiv\.net\/jump\.php\?url=(.+)/)[1]);
                 }
             });
         });
