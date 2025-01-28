@@ -37,7 +37,7 @@
     GM_registerMenuCommand("zipでダウンロード", function() {
         createzip().then(function(blob) {
             // console.log(blob);
-            let id = location.href.match(/^https?:\/\/(?:.+\.)?mercari\.com\/(item|shops\/product)\/([a-zA-Z0-9]+)/)[1];
+            let id = location.href.match(/^https?:\/\/(?:.+\.)?mercari\.com\/(?:item|shops\/product)\/([a-zA-Z0-9]+)/)[1];
             saveAs(blob, `${document.querySelector("h1").innerText}[${id}].zip`);
         });
     })
