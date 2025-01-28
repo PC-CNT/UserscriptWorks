@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            メルカリの商品画像落とすやつ
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2025.01.25.1950
+// @version         2025.01.28.2248
 // @description     
 // @author          PC-CNT
 // @license         MIT
@@ -23,7 +23,7 @@
         let zipWriter = new zip.ZipWriter(new zip.BlobWriter("application/zip"));
 
         for (let slide of parent_div.querySelectorAll(`div.slick-slide`)) await (
-            zipWriter.add(slide.querySelector(`img`).src.match(/\/([^\/]+)(?:\?\w+)$/)[1], new zip.HttpReader(slide.querySelector(`img`).src))
+            zipWriter.add(slide.querySelector(`img`).src.match(/\/([^\/]+)(?:(\?|@)\w+)$/)[1], new zip.HttpReader(slide.querySelector(`img`).src))
         )
         // await Promise.all([
         //     parent_div.querySelectorAll(`div[class="slick-slide"]`).forEach(slide => {
@@ -37,7 +37,7 @@
     GM_registerMenuCommand("zipでダウンロード", function() {
         createzip().then(function(blob) {
             // console.log(blob);
-            let id = location.href.match(/^https?:\/\/(?:.+\.)?mercari\.com\/item\/([a-zA-Z0-9]+)/)[1];
+            let id = location.href.match(/^https?:\/\/(?:.+\.)?mercari\.com\/(item|shops\/product)\/([a-zA-Z0-9]+)/)[1];
             saveAs(blob, `${document.querySelector("h1").innerText}[${id}].zip`);
         });
     })
