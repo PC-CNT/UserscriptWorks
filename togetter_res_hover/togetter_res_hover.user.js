@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name            togetter - レス表示
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2024.01.14.0819
-// @description     togetterの米欄でレスをマウスオーバーで表示するだけ
+// @version         2024.02.01.0140
+// @description     togetterとposfieの米欄でレスをマウスオーバーで表示するだけ
 // @author          PC-CNT
 // @license         MIT
 // @match           *://togetter.com/li/*
+// @match           *://posfie.com/*/p/*
 // @icon            http://www.google.com/s2/favicons?domain=togetter.com&sz=128
 // ==/UserScript==
 
@@ -16,7 +17,7 @@
     const observer = new MutationObserver(() => {
         comment_box.querySelectorAll(`main`).forEach((main) => {
             main.querySelectorAll(`a`).forEach((a) => {
-                if (a.getAttribute(`href`).match(/^\/li\/[0-9]+#.+&thread/)) {
+                if (a.getAttribute(`href`).match(/(^\/li\/[0-9]+#.+&thread)|(^\/@\w+\/p\/\w+#\w+&thread)/)) {
                     let _hr;
                     a.addEventListener(`mouseover`, (e) => {
                         e.preventDefault()
