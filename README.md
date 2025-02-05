@@ -14,4 +14,6 @@
 
 ## Usage
 
-[Tampermonkey](https://www.tampermonkey.net/index.php)拡張機能のインストールが必須です
+[Tampermonkey](https://www.tampermonkey.net/index.php)や[Violetmonkey](https://violentmonkey.github.io/)などの拡張機能をインストール
+
+
