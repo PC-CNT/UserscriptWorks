@@ -26,9 +26,10 @@
         // for (let block of document.querySelectorAll(`[data-csa-c-action="image-block-main-image-hover"]`)) {
         for (let item of document.querySelector("#main-image-container > ul").querySelectorAll(`li.item`)) {
             let img_match = item.querySelector(`img`).src.match(/https?:\/\/m\.media-amazon\.com\/images\/I\/(\w+)(?:\.\w+)?(\.\w+)/)
+            if (!img_match) return;
             let img_url = `https://m.media-amazon.com/images/I/${img_match[1]}${img_match[2]}`
             let img_filename = `${img_match[1]}${img_match[2]}`
-            console.log(`${img_url}:${img_filename}`);
+            // console.log(`${img_url}:${img_filename}`);
             await (
                 zipWriter.add(img_filename, new zip.HttpReader(img_url))
             )
@@ -39,7 +40,7 @@
     GM_registerMenuCommand("zipでダウンロード", function() {
         createzip().then(function(blob) {
             // console.log(blob);
-            let id = location.href.match(/^https?:\/\/(?:www\.)?amazon\.(com|co\.jp)\/(?:.+\/)?(?:dp\/)?([a-zA-Z0-9]+)/)[1];
+            let id = location.href.match(/^https?:\/\/(?:www\.)?amazon\.(?:com|co\.jp)\/(?:.+\/)?(?:dp\/)?([a-zA-Z0-9]+)/)[1];
             saveAs(blob, `${document.querySelector(`h1[id="title"]`).innerText.trim()}[${id}].zip`);
         });
     })
