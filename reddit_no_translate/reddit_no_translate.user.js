@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Redditの翻訳を無効化するだけ
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2025.05.21.0954
+// @version         2025.06.03.0216
 // @description     
 // @author          PC-CNT
 // @license         MIT
@@ -12,7 +12,7 @@
 (() => {
     "use strict";
 
-    const r = /https:\/\/\w+\.reddit\.com\/r\/\w+\/comments\/\w+(\/.+)\/\?tl=\w+/
+    const r = /https:\/\/\w+\.reddit\.com\/r\/\w+\/(comments\/\w+(\/.+)\/)?\?tl=\w+/
 
     document.querySelectorAll("a").forEach(a => {
         if (a.href.match(r)) {
