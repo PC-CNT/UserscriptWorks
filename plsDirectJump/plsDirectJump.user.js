@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            plsDirectJump
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2025.06.02.2200
+// @version         2025.07.10.2220
 // @description:ja  <a href>から2ch.netやFC2 Wikiなどのクッションページを削除して直接飛ぶようにするスクリプト（の予定）です。
 // @author          PC-CNT
 // @license         MIT
@@ -15,6 +15,13 @@
 
 (() => {
     "use strict";
+
+    // const target = document.body
+    const target = document.documentElement
+    const config = {
+        childList: true,
+        subtree: true
+    }
 
     function fixPrefix(url) {
         if (url.match(/^https?:\/\//)) {
@@ -85,12 +92,6 @@
     }
 
     const okwave = () => {
-        const target = document.querySelector(`body`)
-        const config = {
-            childList: true,
-            subtree: true
-        }
-
         const observer = new MutationObserver(() => {
             const al = document.querySelectorAll(`a`);
             al.forEach((value) => {
@@ -110,11 +111,6 @@
     const futaba = () => {
         //* ふたば☆ちゃんねる
         //* (https://www.2chan.net/bin/jump.php?https://example.com)
-        const target = document.querySelector(`html`)
-        const config = {
-            childList: true,
-            subtree: true
-        }
 
         const observer = new MutationObserver(() => {
             const al = document.querySelectorAll(`a`);
@@ -130,11 +126,6 @@
     function pixiv() {
         // * Pixiv
         // * https://www.pixiv.net/jump.php?https%3A%2F%2Fexample.com
-        const target = document.querySelector(`html`)
-        const config = {
-            childList: true,
-            subtree: true,
-        }
 
         const observer = new MutationObserver(() => {
             const al = document.querySelectorAll(`a`);
@@ -151,11 +142,6 @@
     function commons_nico() {
         // * ニコニ・コモンズ
         // * https://commons.nicovideo.jp/gw?url=https%3A%2F%2Fexample.com
-        const target = document.querySelector(`body`)
-        const config = {
-            childList: true,
-            subtree: true
-        }
 
         const observer = new MutationObserver(() => {
             const al = document.querySelectorAll(`a`);
@@ -168,6 +154,17 @@
         });
 
         observer.observe(target, config);
+    }
+
+    function steam() {
+        const _r = /^https?:\/\/steamcommunity\.com\/linkfilter\/\?u=/
+        const observer = new MutationObserver(() => {
+            if (location.href.match(_r)) {
+                location.href = decodeURIComponent(location.href.replace(_r, ""))
+            }
+        })
+
+        observer.observe(target, config)
     }
 
 
@@ -245,6 +242,9 @@
     }
     if (location.host.match(/^commons\.nicovideo\.jp/)) {
         commons_nico()
+    }
+    if (location.host.match(/^steamcommunity\.com/)) {
+        steam()
     }
     others();
 
