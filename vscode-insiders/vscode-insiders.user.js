@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name            vscode-insiders
 // @namespace       https://github.com/PC-CNT/UserscriptWorks/
-// @version         2023.12.17.1308
+// @version         2025.11.10.0314
 // @description     Visual Studio Marketplaceのインストール用リンクをinsiders向けにする
 // @author          PC-CNT
 // @license         MIT
 // @match           *://marketplace.visualstudio.com/*
+// @icon            https://code.visualstudio.com/assets/favicon.ico
 // ==/UserScript==
 
 
